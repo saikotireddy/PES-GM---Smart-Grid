@@ -411,17 +411,11 @@
 
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
-\begin{abstract}
-
-
-One of the key challanges of Smart Grid management is ensuring to meet the demand while having control on the supply cost. \st{This concept of Smart Grid has become popular in the recent times. The main objective in this Smart Grid is to intelligently make use of power.}  It involves \st{taking} performing optimal actions both at the production and consumption sites of \st{electricity} electric grid. In this work, we consider the problem of managing multiple microgrids attached to a central smart grid. Each of these microgrids are equipped with batteries to store renewable power. \st{In this work, we consider multiple microgrids equipped with batteries to store renewable power}. At every instant, each of them receive a demand to meet. Depending on the supply (i.e., currently available battery energy, power drawn either from the central grid or from the peer microgirds), each of the microgrids take a decision on from where to draw the energy to meet the demand. \st{Depending on the current battery and renewable power information, they take a decision on number of power units to be bought or sold.} When a microgrids buys energy either from the central grid or from the peer microgrids, it can use that energy either to meet the current demand or to store in the battery storage for future use. \st{If any of the other neighboring microgrids sell the power, they can consume it. Otherwise, they can get it from the main grid. If power is bought, it is first used to meet its demand and rest of it will be stored in the battery.} Hence, there is a control decision problem at each microgrid on the number of power units to be bought or sold at every time instant. We note that both the forecasted demand and predicted renewable supply impact this decision by each microgrid. \st{We note that the future forecast demand and renewable units also impact this decision.} Further, we consider some amount of the forecasted demand to be adjustable in terms of the time when it can be met by the microgrid. Such an adjustable demand is attributed due to the activities of daily living pertraining to Smart Homes connected to the microgrid networks. Hence, we formulate this problem in the framework of Markov Decision Process and apply Reinforcement Learning algorithms to solve this problem. Through simulations, we show that the policy we obtain performs an significant improvement over traditional techniques.
-
-
-\end{abstract}
+\input{abstract}
 
 % no keywords
 
-
+\input{introduction}
 
 
 % For peer review papers, you can put extra information on the cover
@@ -436,26 +430,9 @@ One of the key challanges of Smart Grid management is ensuring to meet the deman
 
 
 
-\section{Introduction}
+ 
 
 
-****************** Needs to be updated a lot. The below is old paper's content. Some of it will be useful. I request Sai Koti and Chandramouli to take care of this section.***************************
-
-Electricity is one of the most important components of the modern life. According to a recent survey, there are a total of 18,452 unelectrified villages in India. Providing electricity to these villages is difficult for a number of reasons. The village may be situated very far away from the main grid and it would be difficult to establish a direct electrical line between the main grid and the village. Also, due to increasing global warming, we want to make less use of fossil fuels for the generation of power. Our objective in this work is to provide a solution to electrifying these villages.
-
-The concept of smart grid \cite{weiss1999multiagent}, is aimed at improving traditional power grid operations.  It is a distributed energy network composed of intelligent nodes (or agents) that can either operate autonomously or communicate and share energy. The  power grid is facing wide variety of challenges due to incorporation of renewable and sustainable energy power generation sources. The aim of smart grid is to effectively deliver energy to consumers and maintain grid stability.
-
-A microgrid is a distributed networked group consisting of renewable energy generation sources with the aim of providing energy to small areas. This scenario is being envisaged as an important alternative to the conventional scheme with large power stations transmitting energy over long distances. The microgrid technology is useful particularly in the Indian context where extending power supply from the main grids to remote villages is a challenge. While the main power stations are highly connected, microgrids with local power generation, storage and conversion capabilities, act locally or share power with a few neighboring microgrid nodes \cite{farhangi2010path}.
-Integrating microgrids into smartgrid poses several technical challenges. These challenges need to be addressed in order to maintain the reliable and stable operation of electric grid.
-
-Research on smartgrids can be classified into two areas -  Demand-side management and Supply-side management. Demand side management (DSM) (\cite{logenthiran2011multi, wang2010demand,dsm1,dsm2,dsm3,dsm4}) deals with techniques developed to efficiently use the power by bringing the customers into the play. The main idea is to reduce the consumption of power during peak time and shifting it during the other times. This is done by dynamically changing the price of power and sharing this information with the customers. Key techniques to address DSM problem in smart grid are peak clipping, valley filling,  load shifting \cite{maharjan2010demand}. In \cite{reddy2011learned, reddy2011strategy}, Reinforcement Learning (RL) \cite{sutton} is used in smart grids for pricing mechanism so as to improve the profits of broker agents who procure energy from power generation sources and sell it to consumers.  
-
-Supply-side management deals with developing techniques to efficiently make use of renewable and non-renewable energy. In this paper, we consider one such problem of minimizing Demand-Supply deficit in microgrids. 
-
-In our current work, we setup microgrids closer to the villages. These microgrids has power connections from the main grid and also provided with batteries that can store renewable energy sources. Owing to their cost, these batteries will have limited storage capacities. Each microgrid needs to take decision on amount of renewable energy that needs to be used at every time slot and the amount of power that needs to drawn from the main grid. Consider a scenario where, microgrids will use the renewable energy as it is generated. That is, they do not store the energy. Then, during the peak demand, if the amount of renewable energy generated is low and power obtained from the main grid is also low, it leads to huge blackout. Thus, it is important to intelligently store and use the renewable energy. In this work, we apply Multi-agent Q-learning algorithm to solve this problem. 
-
-\section*{Organization of the Paper}	
-The rest of the paper is organized as follows. In Section 2, we formulate the problem in the framework of MDP. In Section 3, we describe the RL algorithm to solve this problem. In Section 4, we discuss experimental results. In Section 5, we provide concluding remarks followed by future work.
 % \subsection{Subsection Heading Here}
 % Subsection text here.
 
@@ -463,41 +440,20 @@ The rest of the paper is organized as follows. In Section 2, we formulate the pr
 % \subsubsection{Subsubsection Heading Here}
 % Subsubsection text here.
 
-\section{Model and Problem}
-
-******************************* This also needs significant improvements. Written briefly here for getting a idea about the work. I will take care of all the section from here.***************
-
- For every microgrid, 
-\begin{itemize}
-	\item State Space : $<time, net\_demand_{t},cost_{t}>$, where $net\_demand_{t}$ is the power units available at time $t$. It can be written as $net\_demand_{t} = Demand_{t} - (renewable_{t} + battery_{t}).$
-	
-	\item $net\_demand_{t}$ can be either positive or negative. Negative units means that the microgrid needs extra power units to meet its demand. Positive units implies it can transfer those units to other microgrids. 
-	
-	\item $cost_{t}$ is the price at which the power units are bought/sold. This is decided by the main grid. Note that $Demand_{t}$ and $cost_{t}$ are modeled as Markov Process, while the $renewable_{t}$ can be any stochastic process (Ex : Poisson Process.)
-	
-	\item Note that the cuurent time $time$ is included in the state space. This is because given a $net\_demand$, different actions are optimal at different times. For example, in the morning a solar microgrid may be better of selling the power than filling its battery. Whereas a wind microgrid can be better of buying the power units as there will be less wind power till the afternoon. 
-	
-	\item Action : Action taken at time $t$ will be $u_{t}$, which represents the number of units that can be borrowed/transferred. If the units are borrowed, they are first used to meet the demand and the remaining will be used to fill up the battery. 
-	
-\end{itemize}
-
-\begin{itemize}
-
-\item Single stage Cost function : 
-
-\begin{align}
-R_t = (u_{t}*cost_{t}) + c_{t}*(Demand_{t} - (renewable_{t}+battery_{t}+u_{t})),
-\end{align}
-
-where $c_{t}$ is the threshold for balancing the price and Demand-supply deficit. 
-
-\end{itemize}
-
+\input{model}
 
 
 \section{Experimental Results}
 
-\section{Conclusion and Future Work}
+\section{Conclusion}
+We considered the problem of electrifying a village by setting up microgrids close to the village. These microgrids have access to the renewable energy storage batteries and also electrical connections from the main grid. We identified two problems associated with the microgrid. First problem is to minimize the expected long-run discounted demand-supply deficit. We model this problem in the framework of MDP \cite{goodmdp}. This formulation doesn't take into consideration the cost of power production at the main grid site. Finally, we formulated MDP taking the cost of power production into consideration. We applied Multi-Agent Q-Learning algorithm to solve these problems. Simulations show that, when maximum power allocation at the main site is not very less, storing the power in the batteries and using them intelligently is the better solution compared to not using the storage batteries. 
+
+\section{Future Work}
+As future work, we would like to consider the possibility of power sharing between the microgrids. In this case, along with decision on amount of power to be used from stored batteries, microgrids also have to make decision on the amount of power that can be shared with others. We would also like to consider the  heterogeneous power price system. In this scenario, the price of power production at the main grid will vary from time to time. 
+
+\section*{Acknowledgment}
+
+The authors would like to thank Robert Bosch Centre for Cyber-Physical Systems, IISc, Bangalore, India for supporting part of this work.
 
 
 % conference papers do not normally have an appendix

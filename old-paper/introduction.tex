@@ -1,0 +1,17 @@
+\section{Introduction}
+
+
+Research on smartgrids can be classified into two areas -  Demand-side management and Supply-side management. Demand side management (DSM) (\cite{logenthiran2011multi, wang2010demand,dsm1,dsm2,dsm3,dsm4}) deals with techniques developed to efficiently use the power by bringing the customers into the play. The main idea is to reduce the consumption of power during peak time and shifting it during the other times. This is done by dynamically changing the price of power and sharing this information with the customers. 
+
+%In \cite{reddy2011learned}, Reinforcement Learning (RL) is used in smart grids for pricing mechanism so as to improve the profits of broker agents who procure energy from power generation sources and sell it to consumers.  
+Supply-side management deals with developing techniques to efficiently make use of renewable and non-renewable energy at the supply side. We now discuss the papers that are close to our work. In \cite{PHarsha}, authors consider the problem of optimal energy storage management problem under dynamic cost setup. They consider a renewable generator that is equipped with a limited storage battery and capable of meeting the some local demands. It also has connection from the main grid. The decision to be taken at every instant is the number of power units to be stored in the battery. They allow this to be negative as power can be drawn from the battery. They formulate this problem as a Markov Decision Process under long run average cost. The objective is to minimize the long run average cost of power bought from the main grid.
+
+The assumption made in this paper is that demand at all times can be met. This is facilitated by allowing the main grid as many units of power as asked by the renewable generator. In our work, we extend this MDP model to put additional constraint on the maximum number of power units that a main grid can provide. Another notable contribution is that we extend this setup to the multiple microgrids. Here, we allow the microgrids to share the power among themselves.  
+
+In \cite{reddy2011learned}, they consider the problem of maximizing the profits among the broker agents. These agents buy the power from the producers and sell it to the customers. They apply Reinforcement Learning (RL) algorithms to solve this problem to show that learning policies perform better than the traditional non-learning strategies.
+
+In \cite{goodmdp}, authors propose an MDP for solving the problem of minimizing the demand and supply deficit  
+and apply dynamic optimization methods. But when the model information (the renewable energy generation in this case) is not known, we cannot apply these techniques.
+
+\section*{Organization of the Paper}	
+The rest of the paper is organized as follows. The next section describes the important problems associated with the microgrids and solution techniques to solve them. Section III presents the results of experiments of our algorithms. Section IV provides the concluding remarks and Section V discusses the future research directions.

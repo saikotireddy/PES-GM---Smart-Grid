@@ -1,0 +1,50 @@
+\section{Problem and Model}
+
+Consider multiple microgrids deployed at the sites where renewable energy is available. They are provided with the limited storage batteries that can store the power. Note that they do not have power generation capabilities. They have electrical connections from neighboring microgrids and also from the main grid. But the sharing of power among the microgrids is the most preferred mode as it results in the minimum dissipation loss of power. Only if the sharing among the microgrids is not possible, the main grid connection comes into play. 
+
+At the beginning of every time instant (For ex. every hour of a day), each microgrid obtains the demand that they need to meet. They also obtain the renewable power generated in that instant. Based on these two information, along with the battery information, the microgrids need to take a decision on number of power units to be bought/sold. If the power is bought, it is first used to meet the demand and the remaining will be stored in the battery. One may think of a simple greedy policy to solve this problem. That is, the microgrids sells the excess units and buys when there is deficit of demand. But this behaviour may not result in the optimal behavior in a long-run. For example, consider a situation where a microgrid have an surplus of power. But the forecasted demand in the future is very high and the forecasted renewable energy is very low. In this case, having power in its battery will be very helpful. Otherwise, it has to buy the power from the main grid which can be very high. Hence the microgrid needs to balance the current and future rewards. Mathematically, we can formulate this problem in the framework of Markov Decision Process (MDP).
+
+*** Write about MDP, Infinite horizon and Average cost MDP *******
+
+Now we formally present the MDP model for our problem. Let us denote $x_{t}^{i} = (d_{t}^{i},r_{t}^{i},b_{t}^{i})$  as the demand, renewable generation and battery information of the microgrid $i$ at time instant $t$. Let the maximum size of the battery be $B$. We assume that the Demand is a Markov Process. That is, the demand in the next time period depends only on the current demand. Renewable generation is assumed to be a stochastic process. As described earlier, the microgrids can share the power among themselves. This is done at the price decided by the main grid. We denote the price of a unit of power at time instant $t$ as $p_{t}$. The price is also modeled as a Markov Process. Thus the state space is denoted by $s_{t}^{i} = <t,x_{t}^{i},p_{t}>$. Note that we include the current time also in the state space. This is because for the same $x_{t}^{i}$ and $p_{t}$, the decision taken can be different at different times. For example, a microgrid operating on solar renewable will be able to sell the power during the morning time as they may still receive the solar power during the afternoon. But they may not want to sell the power during the evening as they will be no solar power in the night. Instead they store the excess power in the battery.
+
+The decision taken by the microgrid $i$ at the time $t$ is denoted as $u_{t}^{i}$. This can be positive or negative. Positive action denotes the number of units that the microgrid is willing to sell. Negative units represents the number of units that the microgrid is willing to buy. If a microgrid needs power, it first accepts it from the neighboring microgrids. Then the remaining units (if any) will be bought from the main grid. If any microgrid has a surplus power that is not consumed by any other, it sells it to the main grid. To maintain the stability at the main grid, We impose a constraint on the number of units of power $M$ that a main grid can give to each microgrid. 
+
+We observe that the action to be taken depends only on the net demand. That is we can further simplify the state space to be $s_{t}^{i} = (t,nd_{t}^{i},p_{t})$ where $nd_{t}^{i} = r_{t}^{i} + b_{t}^{i} - d_{t}^{i}$. If this is negative, it means there is a deficit in demand and positive implies there is excess of power.
+
+Then the action is bounded as follows. For ease of understanding, we drop the subscripts.  
+
+\begin{align}
+-min(M, B - nd) \leq u \leq max(0, nd)
+\end{align}
+
+The intuition behind the bounds is as follows. A microgrid can sell atmost the excess power. That is, the power remaining after meeting the demand. While buying, it can buy to meet the demand and also to fill its battery.
+
+The battery information is updated as follows:
+
+\begin{align}
+b_{t+1}^{i} = max(0,nd_{t}^{i} - u_{t}^{i})
+\end{align}
+
+We formulate the single stage cost function as follows :
+\begin{align}
+g^{i}(s,u) = p_{t}*u_{t}^{i} + c*(min(0,nd_{t}^{i} - u_{t}^{i}).
+\end{align}
+
+The first term represents the cost of buying or selling the power and the second term represents the demand and supply deficit. For every unit of demand that is not met, the microgrid incurs a cost of $c$. 
+
+Finally, the objective of the microgrid $i$ is to maximize the following \cite{avgcost}:
+
+\begin{align}
+limsup_{n \rightarrow \infty} 1/n \sum_{k = 0}^{n} E(g^{i}(s_{k},u_{k})),
+\end{align}
+
+where $E(.)$ is the expectation. 
+
+We also consider the long run discounted cost formulation. The objective here is to maximize the following:
+
+\begin{align}
+limsup_{n \rightarrow \infty} \sum_{k = 0}^{n} \gamma^{k} * E(g^{i}(s_{k},u_{k})),
+\end{align}
+
+where $\gamma$ is the discount factor. 
