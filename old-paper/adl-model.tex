@@ -1,0 +1,37 @@
+\section{ADL Model}
+
+
+
+
+
+The decision taken by the microgrid $i$ at the time $t$ is denoted as $u_{t}^{i}$ and $v_{t}^{i}$.
+Let the set of ADL jobs at microgrid $i$ at time $t$ be $J_{t}^{i}$. And  $J_{t}^{i}= \{\gamma_{1}^{i},\ldots,\gamma_{n}^{i}\}$, where jth ADL job $\gamma_{j}^{i} = (a_{j}^{i}, y_{j}^{i})$ consists of the number of units of power required to finish the job (denoted by  $a_{j}^{i}$) and number of time slots remaing to shedule the  job (denoted by  $y_{j}$).
+The state space be $s_{t}^{i} = (t,nd_{t}^{i},p_{t}, J_{t}^{i})$ where $nd_{t}^{i} = r_{t}^{i} + b_{t}^{i} - d_{t}^{i}$. If this is negative, it means there is a deficit in demand and positive implies there is excess of power.
+Let $P_{t}^{i} = \{\Gamma_{1}^{i},\ldots,\Gamma_{N}^{i}\}$ be the power set of $J_{t}^{i}$, which consists of all possible combinations of the ADL jobs that can be sheduled at time instant $t$ at microgrid $i$. 
+Let  $A_{t}^{i} = \{A(\Gamma_{1}^{i}),\ldots,A(\Gamma_{N}^{i})\} $, where $A(\Gamma_{j}^{i}) = \sum_{\gamma_{k}^{i} \in \Gamma_{j}^{i} } a_{k}^{i}$.
+
+
+Then the action is bounded as follows. For ease of understanding, we drop the subscripts.  
+
+\begin{align}
+-min(M, B - nd + &\max_{1\leq j \leq N} A(\Gamma_{j}^{i}) ) \leq u \nonumber\\ &\leq max(0, nd - \min_{1\leq j \leq N} A(\Gamma_{j}^{i}))
+\end{align}
+
+The intuition behind the bounds is as follows. A microgrid can sell atmost the excess power. That is, the power remaining after meeting the demand. While buying, it can buy to meet the demand and also to fill its battery.
+
+Now after getting $u_{t}^{i}$, we construct the feasible set $F_{t}^{i}$, which is a subset of $P_{t}^{i}$. Each element $\Gamma_{j}^{i}$ in the $F_{t}^{i}$ has to satisfy the following condition $A(\Gamma_{j}^{i}) \leq u_{t}^{i} $.
+Agent has to pick the action $v_{t}^{i} = \Gamma_{j}^{i} \in F_{t}^{i}$. Now ADL jobs in $\Gamma_{j}^{i}$ will get sheduled. Let $J_{t+1}^{i}$ be the new ADL jobs at time instatant $t+1$. $J_{t+1}^{i} = J_{t+1}^{i} \cup \widetilde J_{t}^{i}$, where $\overline J_{t}^{i} = J_{t}^{i} - v_{t}^{i}$ and $\widetilde J_{t}^{i} =  \{(a_{1}^{i}, y_{1}^{i} - 1),\ldots,(a_{n}^{i}, y_{n}^{i} - 1)\}$, where $ (a_{j}^{i}, y_{j}^{i}) \in \overline J_{t}^{i}$.
+
+The battery information is updated as follows:
+
+\begin{align}
+b_{t+1}^{i} = max(0,nd_{t}^{i} - u_{t}^{i})
+\end{align}
+
+We formulate the single stage cost function as follows :
+\begin{align}
+g^{i}(s,u) = p_{t}*u_{t}^{i} + c*(min(0,nd_{t}^{i} - u_{t}^{i})) + c* \sum_{k =1}^{n} I_{y_{k}^{i} = 0} a_{k}^{i}.
+\end{align}
+
+The first term represents the cost of buying or selling the power and the second term represents the demand and supply deficit. For every unit of demand that is not met, the microgrid incurs a cost of $c$. 
+

@@ -1,0 +1,97 @@
+% For figures
+% \usepackage{graphicx} % more modern
+\usepackage{blindtext, graphicx}
+% \usepackage{subfigure} 
+\usepackage{macros}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+% \usepackage[numbers]{natbib}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{hyperref}
+
+\usepackage{xcolor}
+\usepackage{colortbl}
+
+\usepackage{paralist}
+\let\labelindent\relax
+\usepackage{enumitem}
+\usepackage{times}
+\usepackage{amsmath,amssymb}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.12}
+\usepackage{todonotes}
+\usepackage{nicefrac}
+\usetikzlibrary{positioning,arrows,calc,patterns,backgrounds}
+\usetikzlibrary{shapes}
+\usetikzlibrary{fit}
+\usepackage{multirow}
+
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+\newcommand{\tabl}[2]{\begin{tabular}{#1} #2 \end{tabular}}
+\newcommand{\ith}[2][th]{$#2^{\text{#1}}$}
+
+ \newtheorem{theorem}{Theorem}
+ \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+
+\newenvironment{prooff}[1]{\par\noindent {\em Proof.} {\bf #1}}{\hfill$\blacksquare$\par}
+
+\def\argmax{\mathop{\rm arg\,max}}
+\def\Var{{\bf Var}}
+
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\S}{\mathcal{S}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Z}{\mathcal{Z}}
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathbb{P}}
+
+\newcommand{\tr}{^\mathsf{\scriptscriptstyle T}}
+\newcommand{\tpi}{\Pi}
+\newcommand{\tgamma}{\tilde{\gamma}}
+\newcommand{\ttheta}{\tilde{\theta}}
+\newcommand{\tz}{\tilde{z}}
+
+\renewcommand{\l}{\left\|}
+\renewcommand{\r}{\right\|}
+\newcommand{\vml}{\left\|}
+\newcommand{\vmr}{\right\| _{\Psi}}
+\newcommand{\ml}{\left\|}
+\newcommand{\mr}{\right\|_2}
+
+\newcommand{\e}{\exp}
+
+%\DeclareMathOperator*{\argmin}{arg\,min}
+% \DeclareMathOperator*{\argmax}{arg\,max}
+
+\definecolor{bleu2}{RGB}{28,50,114} % bleu S
+\xdefinecolor{darkgreen}{rgb}{0,0.35,0}

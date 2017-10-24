@@ -62,6 +62,10 @@
 % manually specify the path to it like:
 % \documentclass[conference]{../sty/IEEEtran}
 
+
+\IEEEoverridecommandlockouts 
+\usepackage{macros}
+
 \usepackage{amsmath}
 \usepackage{blindtext, graphicx}
 \usepackage{algorithm}
@@ -73,7 +77,7 @@
 \usepackage{pifont}
 \usepackage{tikz}
 \usepackage{amssymb}
-%\usepackage{natbib}
+
 \usepackage{upgreek}
 
 \usepackage{mathtools}
@@ -441,6 +445,7 @@
 % Subsubsection text here.
 
 \input{model}
+\input{adl-model}
 
 
 \section{Experimental Results}

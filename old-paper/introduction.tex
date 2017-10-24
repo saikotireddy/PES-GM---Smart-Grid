@@ -1,5 +1,50 @@
 \section{Introduction}
 
+The smart grid is a distributed energy network composed of intelligent
+nodes (or agents) that can either operate autonomously or communicate and share energy \cite{weiss1999multiagent}.
+The purpose of a smart grid is to efficiently deliver energy to consumers as well as store and convert
+energy produced, e.g., according to prices, supply and demand. 
+
+A microgrid is a networked group of distributed energy sources with the goal of
+generating, converting and storing energy. 
+While the main power stations are highly connected, micro-grids with local power generation, storage
+and conversion capabilities, act locally or share power with a few neighbouring micro-grid nodes \cite{farhangi2010path}.
+This scenario is being envisaged as an important alternative to the conventional scheme with
+large power stations transmitting energy over long distances.
+
+ In order to take full advantage of the modularity and flexibility of micro-grid technologies, smart
+control mechanisms are required to manage and coordinate these distributed energy systems so as to
+minimize the costs of energy production, conversion and storage, without jeopardizing grid stability.
+
+The implementation of such smart controls is by no means easy for the following reasons:
+\begin{inparaenum}[\bfseries (i)]
+\item Small scale energy production and storage is intrinsically
+         related to intermittency of wind/solar energy and to variability in the load profile.
+          So an important challenge is to increase resilience and reliability under stochastic supply and
+                 demand.
+\item Micro-grids can operate in two different modes: (a) when they are connected to the
+main power grid, and (b) in the isolated or island mode. Moreover, they can share energy with
+other microgrids that require energy. Thus, one needs to make
+dynamic decisions on (a) when to operate in the connected (to the power grid) or isolated modes, 
+(b) when to share energy with other microgrids and when to store energy for future use, and (c) 
+which form to store energy given that storage management itself
+involves heterogeneous storage technologies with different
+operating characteristics.
+%\item Each microgrid has access to only its local (and not global) state information. 
+%While microgrids can exchange information with one another, there are problems with frequent communication
+%between microgrids due to (a) privacy issues and (b) risk of cyber attacks.
+%Important challenges here include (a) optimizing global grid performance with limited communications,
+%(b) voltage and frequency control for grid stabilization.
+%\item Decision making in microgrids needs to take place on different timescales. On the slower
+%timescale of say hours, one needs to make decisions on energy generation, conversion and storage,
+%while on the faster timescale of minutes to seconds, one needs to make decisions related to dynamic
+%demand response as well as ensuing grid stability, i.e., of frequency and voltage regulation.
+\end{inparaenum}
+
+**************************************************************
+Need to write about ADL and Literature Survey And Our Work
+**************************************************************
+
 
 Research on smartgrids can be classified into two areas -  Demand-side management and Supply-side management. Demand side management (DSM) (\cite{logenthiran2011multi, wang2010demand,dsm1,dsm2,dsm3,dsm4}) deals with techniques developed to efficiently use the power by bringing the customers into the play. The main idea is to reduce the consumption of power during peak time and shifting it during the other times. This is done by dynamically changing the price of power and sharing this information with the customers. 
 
