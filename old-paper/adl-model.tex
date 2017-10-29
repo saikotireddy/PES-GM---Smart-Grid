@@ -1,17 +1,40 @@
 \section{Problem formulation and mdp model}
+%Microgrids comprise of the distributed small scale power generating sources, mainly renewable energy sources (mainly wind and solar ) and  are also equipped with storage devises.
+We consider $N$ microgrids denoted by $\{1,\ldots,N\}$, which are inter-connected through distribution network. In this paper, we consider the case when microgrids are connected  to the main grid (i.e, they are operated in grid connected mode). Each microgrid comprise of the distributed small scale renewable power generating sources and also equipped with energy storage devices. Let $B_i$ be the maximum energy storage capacity of microgrid $i$. At every time step $t$ of a day, $i$th microgrid controller $C_i$ is having the following information:
+\begin{enumerate}[label=(\alph*)]
+\item Total generated energy from all its distributed renewable energy sources denoted by  $r_t^i$.
+% (super script $i$ used to refer to microgrid $i$).
+\item Accumulated non-ADL demand denoted by $d_t^i$, from every load in the $i$th microgrid. 
+\item Set of all ADL jobs at microgrid $i$ denoted $J_{t}^{i}$.  $J_{t}^{i}$ is of the form $\{\gamma_{1}^{i},\ldots,\gamma_{n}^{i}\}$, where $j$th ADL job $\gamma_{j}^{i}$, is a tuple consists of  number of units of energy required to finish that job denoted by $a_{j}^{i}$ and an integer  $f_{j}^{i}$, which denotes number of future time slots remaining by which one can schedule that job without incurring the penalty. Let  it be represented as follows $\gamma_{j}^{i} = (a_{j}^{i}, f_{j}^{i})$. Let the total ADL demand be denoted by $A_t^i= \sum_{j=1}^{n} a_j^i$.
+\item  Total energy available in the storage device of microgrid $i$, denoted by $b_{t}^{i}$.
+\end{enumerate} 
+In this paper, we are considering the cooperative energy exchange model under which microgrids can share energy among themselves. 
+From the above available information, microgrid controller  $C_i$ at every time step $t$ has to decide on the following choices: (a)  Amount of energy it needs to buy/sell from the main grid, (b) Amount of energy it needs to buy/sell from the neighboring microgrids,
+(c) Amount of the energy it needs to store/take from the storage device, and (d) Sub-set of ADL jobs it needs to schedule. Both the demand and energy generated at microgrid $i$ is uncertain/random due to  random nature of  loads ($d_t^i$ and $A_t^i$) and renewable energy generation ($r_t^i$). 
 
-
+Markov decision process (MDP)  is a general framework for modeling problems of dynamic optimal decision making under uncertainty. *****Need to write about MDP*******.
+%We modeled our problem in the framework of MDP. 
+ In the next sub-section we provide the details of out MDP model.
 
 \subsection{MDP model}
 
-The decision taken by the microgrid $i$ at the time $t$ is denoted as $u_{t}^{i}$ and $v_{t}^{i}$.
-Let the set of ADL jobs at microgrid $i$ at time $t$ be $J_{t}^{i}$. And  $J_{t}^{i}= \{\gamma_{1}^{i},\ldots,\gamma_{n}^{i}\}$, where jth ADL job $\gamma_{j}^{i} = (a_{j}^{i}, y_{j}^{i})$ consists of the number of units of power required to finish the job (denoted by  $a_{j}^{i}$) and number of time slots remaing to shedule the  job (denoted by  $y_{j}$).
-The state space be $s_{t}^{i} = (t,nd_{t}^{i},p_{t}, J_{t}^{i})$ where $nd_{t}^{i} = r_{t}^{i} + b_{t}^{i} - d_{t}^{i}$. If this is negative, it means there is a deficit in demand and positive implies there is excess of power.
+\subsubsection{State space}
+
+The state $s_{t}^{i}$ at time instant $t$  for microgrid $i$ is as follows:
+\begin{align}
+s_{t}^{i} = (t,nd_{t}^{i},p_{t}, J_{t}^{i}),
+\end{align}
+where the net demand $nd_{t}^{i} = r_{t}^{i} + b_{t}^{i} - d_{t}^{i}$ and $p_{t},  J_{t}^{i}$ denotes the price of a unit of energy and set of all ADL jobs at time instant $t$. Net demand $nd_{t}^{i}$, if positive implies there is excess of power after meeting the Non-Adl demand and if negative, there is a deficit in power even to meet the Non-adl demand. ***********Note that we include the current time also in the state space. This is because for the same $,nd_{t}^{i},p_{t}, J_{t}^{i}$, the decision taken can be different at different times. For example, a microgrid operating on solar renewable will be able to sell the power during the morning time as they may still receive the solar power during the afternoon. But they may not want to sell the power during the evening as they will be no solar power in the night. Instead they store the excess power in the battery*********.
+
+
+
+
+\subsubsection{Action space}
+At each time instant $t$ microgrid controller needs to take two decision $u_{t}^{i}$ and $v_{t}^{i}$. The first action $u_{t}^{i}$, if positive, denotes the number of units that the microgrid is willing to sell and if negative, represents the number of units that the microgrid is willing to buy. 
+
 Let $P_{t}^{i} = \{\Gamma_{1}^{i},\ldots,\Gamma_{N}^{i}\}$ be the power set of $J_{t}^{i}$, which consists of all possible combinations of the ADL jobs that can be sheduled at time instant $t$ at microgrid $i$. 
 Let  $A_{t}^{i} = \{A(\Gamma_{1}^{i}),\ldots,A(\Gamma_{N}^{i})\} $, where $A(\Gamma_{j}^{i}) = \sum_{\gamma_{k}^{i} \in \Gamma_{j}^{i} } a_{k}^{i}$.
-
-
-Then the action is bounded as follows. For ease of understanding, we drop the subscripts.  
+Then the action $u_{t}^{i}$ is bounded as follows. For ease of understanding, we drop the subscripts.  
 
 \begin{align}
 -min(M, B - nd + &\max_{1\leq j \leq N} A(\Gamma_{j}^{i}) ) \leq u \nonumber\\ &\leq max(0, nd - \min_{1\leq j \leq N} A(\Gamma_{j}^{i}))
@@ -27,7 +50,7 @@ The battery information is updated as follows:
 \begin{align}
 b_{t+1}^{i} = max(0,nd_{t}^{i} - u_{t}^{i})
 \end{align}
-
+\subsubsection{Single stage cost function}
 We formulate the single stage cost function as follows :
 \begin{align}
 g^{i}(s,u) = p_{t}*u_{t}^{i} + c*(min(0,nd_{t}^{i} - u_{t}^{i})) + c* \sum_{k =1}^{n} I_{y_{k}^{i} = 0} a_{k}^{i}.
@@ -36,3 +59,90 @@ g^{i}(s,u) = p_{t}*u_{t}^{i} + c*(min(0,nd_{t}^{i} - u_{t}^{i})) + c* \sum_{k =1
 The first term represents the cost of buying or selling the power and the second term represents the demand and supply deficit. For every unit of demand that is not met, the microgrid incurs a cost of $c$. 
 
 \subsection{Average cost setting}
+Finally, the objective of the microgrid $i$ is to maximize the following \cite{avgcost}:
+
+\begin{align}
+limsup_{n \rightarrow \infty} 1/n \sum_{k = 0}^{n} E(g^{i}(s_{k},u_{k})),
+\end{align}
+
+where $E(.)$ is the expectation. 
+
+We also consider the long run discounted cost formulation. The objective here is to maximize the following:
+
+\begin{align}
+limsup_{n \rightarrow \infty} \sum_{k = 0}^{n} \gamma^{k} * E(g^{i}(s_{k},u_{k})),
+\end{align}
+
+where $\gamma$ is the discount factor. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\algblock{PEval}{EndPEval}
+%\algnewcommand\algorithmicPEval{\textbf{\em Function evaluation 1}}
+% \algnewcommand\algorithmicendPEval{}
+%\algrenewtext{PEval}[1]{\algorithmicPEval\ #1}
+%\algrenewtext{EndPEval}{\algorithmicendPEval}
+%
+%\algblock{PEvalPrime}{EndPEvalPrime}
+%\algnewcommand\algorithmicPEvalPrime{\textbf{\em Function evaluation 2}}
+% \algnewcommand\algorithmicendPEvalPrime{}
+%\algrenewtext{PEvalPrime}[1]{\algorithmicPEvalPrime\ #1}
+%\algrenewtext{EndPEvalPrime}{\algorithmicendPEvalPrime}
+%
+%\algblock{PImp}{EndPImp}
+%\algnewcommand\algorithmicPImp{\textbf{\em Gradient descent}}
+% \algnewcommand\algorithmicendPImp{}
+%\algrenewtext{PImp}[1]{\algorithmicPImp\ #1}
+%\algrenewtext{EndPImp}{\algorithmicendPImp}
+%
+%\algtext*{EndPEval}
+%\algtext*{EndPEvalPrime}
+%\algtext*{EndPImp}
+%%%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
+%\algblock{PEvalPrimeDouble}{EndPEvalPrimeDouble}
+%\algnewcommand\algorithmicPEvalPrimeDouble{\textbf{\em Function evaluation 3}}
+% \algnewcommand\algorithmicendPEvalPrimeDouble{}
+%\algrenewtext{PEvalPrimeDouble}[1]{\algorithmicPEvalPrimeDouble\ #1}
+%\algrenewtext{EndPEvalPrimeDouble}{\algorithmicendPEvalPrimeDouble}
+%\algtext*{EndPEvalPrimeDouble}
+%
+%\algblock{PImpNewton}{EndPImpNewton}
+%\algnewcommand\algorithmicPImpNewton{\textbf{\em Newton step}}
+% \algnewcommand\algorithmicendPImpNewton{}
+%\algrenewtext{PImpNewton}[1]{\algorithmicPImpNewton\ #1}
+%\algrenewtext{EndPImpNewton}{\algorithmicendPImpNewton}
+%
+%\algtext*{EndPImpNewton}
+%
+%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{algorithm}[t]
+%\begin{algorithmic}
+%\State {\bf Input:} 
+%initial parameter $x_0 \in \R^N$, perturbation constants $\delta_n>0$, step-sizes $\{a_n, b_n\}$, operator $\Upsilon$.
+%\For{$n = 0,1,2,\ldots$}	
+%	\State Generate $\{d_n^{i}, i=1,\ldots,N\}$, independent of $\{d_m, m=0,1,\ldots,n-1\}$. 
+%	\State For any $i=1,\ldots,N$, $d_n^{i}$ is distributed either as an asymmetric Bernoulli (see \eqref{eq:det-proj}) or Uniform $U[-\eta,\eta]$ for some $\eta >0$ (see Remark \ref{remark:unif}). 
+%	\PEval
+%	    \State Obtain $y_n^+ = f(x_n+\delta_n d_n) + \xi_n^+$.
+%  \EndPEval
+%	    \PEvalPrime
+%	    \State Obtain $y_n^- = f(x_n-\delta_n d_n) + \xi_n^-$.
+%	    \EndPEvalPrime
+%	    	    \PEvalPrimeDouble
+%	    \State Obtain $y_n = f(x_n) + \xi_n$.
+%	    \EndPEvalPrimeDouble
+%	    \PImpNewton
+%		\State Update the parameter and Hessian as follows:
+%		\begin{align*}
+%		x_{n+1} = & \; x_n - a_n \Upsilon(\overline H_n)^{-1}\widehat\nabla f(x_n), \\
+%\overline H_n = &\; (1-b_{n})  \overline H_{n-1} + b_{n} ( \widehat H_n - \widehat \Psi_n),
+%\end{align*}
+%where $\widehat H_n$ and $\widehat \Psi_n$ are chosen according to \eqref{eq:2rdsa-estimate-ber} and \eqref{eq:psinhat}, respectively. 
+%		\EndPImpNewton
+%\EndFor
+%\State {\bf Return} $x_n.$
+%\end{algorithmic}
+%\caption{Structure of 2RDSA-IH algorithm.}
+%\label{alg:structure}
+%\end{algorithm}
