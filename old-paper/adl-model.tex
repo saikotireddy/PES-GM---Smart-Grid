@@ -4,7 +4,7 @@ We consider $N$ microgrids denoted by $\{1,\ldots,N\}$, which are inter-connecte
 \begin{enumerate}[label=(\alph*)]
 \item Total generated energy from all its distributed renewable energy sources denoted by  $r_t^i$.
 % (super script $i$ used to refer to microgrid $i$).
-\item Accumulated non-ADL demand denoted by $d_t^i$, from every load in the $i$th microgrid. 
+\item Accumulated non-ADL demand denoted by $d_t^i$, from each load in the $i$th microgrid. 
 \item Set of all ADL jobs at microgrid $i$ denoted $J_{t}^{i}$.  $J_{t}^{i}$ is of the form $\{\gamma_{1}^{i},\ldots,\gamma_{n}^{i}\}$, where $j$th ADL job $\gamma_{j}^{i}$, is a tuple consists of  number of units of energy required to finish that job denoted by $a_{j}^{i}$ and an integer  $f_{j}^{i}$, which denotes number of future time slots remaining by which one can schedule that job without incurring the penalty. Let  it be represented as follows $\gamma_{j}^{i} = (a_{j}^{i}, f_{j}^{i})$. Let the total ADL demand be denoted by $A_t^i= \sum_{j=1}^{n} a_j^i$.
 \item  Total energy available in the storage device of microgrid $i$, denoted by $b_{t}^{i}$.
 \end{enumerate} 
@@ -24,7 +24,7 @@ The state $s_{t}^{i}$ at time instant $t$  for microgrid $i$ is as follows:
 \begin{align}
 s_{t}^{i} = (t,nd_{t}^{i},p_{t}, J_{t}^{i}),
 \end{align}
-where the net demand $nd_{t}^{i} = r_{t}^{i} + b_{t}^{i} - d_{t}^{i}$ and $p_{t},  J_{t}^{i}$ denotes the price of a unit of energy and set of all ADL jobs at time instant $t$. Net demand $nd_{t}^{i}$, if positive implies there is excess of power after meeting the Non-Adl demand and if negative, there is a deficit in power even to meet the Non-adl demand. ***********Note that we include the current time also in the state space. This is because for the same $,nd_{t}^{i},p_{t}, J_{t}^{i}$, the decision taken can be different at different times. For example, a microgrid operating on solar renewable will be able to sell the power during the morning time as they may still receive the solar power during the afternoon. But they may not want to sell the power during the evening as they will be no solar power in the night. Instead they store the excess power in the battery*********.
+where the net demand $nd_{t}^{i} = r_{t}^{i} + b_{t}^{i} - d_{t}^{i}$, which denotes whether there is an excess power or deficit.  And $p_{t} and  J_{t}^{i}$ denotes the price per unit energy and set of all ADL jobs at time instant $t$ respectively. If  net demand $nd_{t}^{i}$ is positive then it implies that there is excess of power after meeting the non-ADL demand and if negative implies that there is a deficit in power even to meet the Non-ADL demand. Current time slot is  included in the state since optimal action can depend on time. For example, optimal action for solar microgrid  is to sell the power in the morning as it can generate enough power in the afternoon. But it is not optimal to sell in the evening as it can not generate power in the night. Optimal action in the morning is to sell whereas in the evening is store.
 
 
 
@@ -32,13 +32,14 @@ where the net demand $nd_{t}^{i} = r_{t}^{i} + b_{t}^{i} - d_{t}^{i}$ and $p_{t}
 \subsubsection{Action space}
 At each time instant $t$ microgrid controller needs to take two decision $u_{t}^{i}$ and $v_{t}^{i}$. The first action $u_{t}^{i}$, if positive, denotes the number of units that the microgrid is willing to sell and if negative, represents the number of units that the microgrid is willing to buy. 
 
-Let $P_{t}^{i} = \{\Gamma_{1}^{i},\ldots,\Gamma_{N}^{i}\}$ be the power set of $J_{t}^{i}$, which consists of all possible combinations of the ADL jobs that can be sheduled at time instant $t$ at microgrid $i$. 
-Let  $A_{t}^{i} = \{A(\Gamma_{1}^{i}),\ldots,A(\Gamma_{N}^{i})\} $, where $A(\Gamma_{j}^{i}) = \sum_{\gamma_{k}^{i} \in \Gamma_{j}^{i} } a_{k}^{i}$.
-Then the action $u_{t}^{i}$ is bounded as follows. For ease of understanding, we drop the subscripts.  
-
+Let $P_{t}^{i}$ be the power set of $J_{t}^{i}$, which consists of all possible combinations of the ADL jobs that can be sheduled at time instant $t$ at microgrid $i$. Let  $A_{t}^{i}$ consists of the total aggregated demand  for every subset in  $P_{t}^{i}$. For example, let the $j$th element of $A_{t}^{i}(j) = \sum_{k=1, \gamma_k^i \in P_{t}^{i}(j) }^n a_k^i$, where $ P_{t}^{i}(j)$ is $j$th element of  $P_{t}^{i}$.
+%Let $P_{t}^{i} = \{\Gamma_{1}^{i},\ldots,\Gamma_{N}^{i}\}$ be the power set of $J_{t}^{i}$, which consists of all possible combinations of the ADL jobs that can be sheduled at time instant $t$ at microgrid $i$. 
+%Let  $A_{t}^{i} = \{A(\Gamma_{1}^{i}),\ldots,A(\Gamma_{N}^{i})\} $, where $A(\Gamma_{j}^{i}) = \sum_{\gamma_{k}^{i} \in \Gamma_{j}^{i} } a_{k}^{i}$.
+ The feasible region for action $u_{t}^{i}$ is bounded as follows:
 \begin{align}
--min(M, B - nd + &\max_{1\leq j \leq N} A(\Gamma_{j}^{i}) ) \leq u \nonumber\\ &\leq max(0, nd - \min_{1\leq j \leq N} A(\Gamma_{j}^{i}))
+-min(M_t^i, B_t^i - nd_t^i + &\max_{1\leq j \leq 2^n} A(j) ) \leq u_t^i \nonumber\\ &\leq max(0, nd_t^i - \min_{1\leq j \leq 2^n} A(j))
 \end{align}
+where $M_t^i$ denotes maximum amount of power main grid can give it to microgrid $i$. This constraint is to maintain stability of the main grid. 
 
 The intuition behind the bounds is as follows. A microgrid can sell atmost the excess power. That is, the power remaining after meeting the demand. While buying, it can buy to meet the demand and also to fill its battery.
 
