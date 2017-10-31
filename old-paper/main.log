@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.20)  31 OCT 2017 21:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.20)  31 OCT 2017 22:02
 entering extended mode
 **main.tex
 (main.tex
@@ -1500,7 +1500,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 124--131
  []
 
 [2 <./powergrid2.pdf>]) (adl-model.tex [3]) (algorithm.tex)
-(experimental_section.tex [4]) [5] (main.bbl
+(experimental_section.tex
+<experimental_setup.jpg, id=162, 341.02406pt x 228.10219pt>
+File: experimental_setup.jpg Graphic file (type jpg)
+
+<use experimental_setup.jpg>
+Package pdftex.def Info: experimental_setup.jpg used on input line 7.
+(pdftex.def)             Requested size: 204.61601pt x 136.86235pt.
+ [4]) [5 <./experimental_setup.jpg>] (main.bbl
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
@@ -1523,14 +1530,14 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 501.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 501.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 501.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C9E34607DB8BE853A4B96931756E7657;1191.
+(rerunfilecheck)             Checksum: A8BA09FCAA80D50092EC19777A32220C;1191.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 501.
  ) 
 Here is how much of TeX's memory you used:
- 40949 strings out of 493698
- 964003 string characters out of 3144394
- 1117983 words of memory out of 3000000
- 43549 multiletter control sequences out of 15000+200000
+ 40957 strings out of 493698
+ 964157 string characters out of 3144394
+ 1118058 words of memory out of 3000000
+ 43554 multiletter control sequences out of 15000+200000
  42967 words of font info for 93 fonts, out of 3000000 for 9000
  1027 hyphenation exceptions out of 8191
  62i,9n,94p,10393b,813s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1546,9 +1553,9 @@ gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/font
 s/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/time
 s/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 209643 bytes).
+Output written on main.pdf (6 pages, 261679 bytes).
 PDF statistics:
- 243 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
- 170 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 245 PDF objects out of 1000 (max. 8388607)
+ 63 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 
