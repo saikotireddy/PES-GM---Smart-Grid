@@ -6,7 +6,7 @@ We implemented our models on network with 3 microgrids. Two microgrids are opera
 % \includegraphics[scale = 0.4]{experimental_setup.jpg}
 % \end{figure}
 
-We simulate this model for the month of September 2017 and collect the wind and solar renewable power generated each day every hour. The parameters for our experiments are described below. The number of decision time periods is taken to be 4. We consider 3 demand values for all the microgrids - 2, 4 and 6 units. The probability transition matrices for all the 3 microgrids are given below :
+We simulate the above setup for the month of September 2017 and collect the wind and solar renewable power generated each day every hour. The parameters for our experiments are described below. The number of decision time periods is taken to be 4. We consider 3 demand values for all the microgrids - 2, 4 and 6 units. The probability transition matrices for all the 3 microgrids are given below :
 
 $$
 P_{1} = [0.2 0.6 0.2;0.1 0.2 0.7;0.8 0.1 0.1]; $$
@@ -20,7 +20,7 @@ $$ P2 = [0.2 0.4 0.4;0.1 0.5 0.4;0.5 0.4 0.1];$$
 
 Maximum size of battery and maximum renewable power generated is taken to be 8 units. The maximum power that a microgrid can obtain from the main grid is set to 10 units.
 
-We consider 3 ADLs in our experiment. First ADL requires 1 unit of power that needs to be satisfied within the second time period. Second ADL requires 1 unit of power within the third time period. Third ADL requires 2 units of power within the fourth time period. 
+We consider 3 ADLs in our experiment. First ADL requires 1 unit of power that needs to be satisfied within the second time period. Second ADL requires 1 unit of power within the third time period. Third ADL requires 2 units of power within the fourth time period.
 
 With this setup, we compare our proposed models. The algorithms are trained for $10^6$ iterations. For comparison purposes, we plot value of threshold $c$ on X-axis and Average reward on Y-axis. Average reward is computed as follows. We run the trained models for 1000 runs and average the reward obtained by each microgrid. 
 
