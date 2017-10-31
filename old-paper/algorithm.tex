@@ -21,20 +21,3 @@ Each microgrid will run the algorithm independently under convergence. Then the 
 
 That is, the optimal policy in state $s$ is selected by taking the maximum of all actions of Q-value of corresponding state. 
 
-\section{Models considered}
-
-In section 2, we described a multiple microgrid model with power sharing and integration of ADL. We call this as $ADL-sharing$ model. We describe two different models for comparison purposes. 
-
-\subsection{Greedy ADL model}
-
-In this model, the microgrids will exhibit the greedy behavior. They share the power only if there is excess power after filling up the battery. That is, the action in each instant is bounded by   
-
-\begin{align}
--min(M, B - nd) \leq max(0,nd - B) 
-\end{align}
-
-That is, if the net demand is negative, decision is taken on amount to power to buy to meet the demand and fill the battery. On the other hand, if the net demand is positive, it is first used to fill the battery and only if there is any excess power left, it will be sold to other microgrids. 
-
-\subsection{Non-ADL model}
-
-This model is similar to the $ADL-sharing$ model, but without the integration of ADL demand. In this model, the ADL demand is added to the main demand. Unlike the $ADL-sharing$ model, there is no flexibility of intelligently scheduling the ADL demand. 

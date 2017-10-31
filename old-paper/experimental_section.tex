@@ -1,5 +1,24 @@
-\section{Simulation experiments}
+\section{Simulation Experiments}
 We implemented our models on network with 3 microgrids. Two microgrids are operating on solar renewable generation and the other on wind renewable energy. To simulate the renewable generation, we use RAPsim software \cite{rapsim}. RAPsim is an open source simulator for analyzing the power flow in microgrids. It has a provision for simulating the renewable generation, which is the main feature that we use in our experiments. We construct our microgrid model as shown in the figure. We can see that there are three microgrids, two of them operating on the solar energy and the other on the wind energy. They also have electrical connections from the main grid. Each microgrid provides power to the respective houses on their power line. 
+
+\subsection{Implementation}
+
+We implement the model we described in the section 2. We call this model as $ADL-sharing$ model. For comparison purposes, we implement following models. 
+
+\begin{itemize}
+	\item \textbf{Greedy-ADL model}: In this model, the microgrids will exhibit the greedy behavior. They share the power only if there is excess power after filling up the battery. That is, the action in each instant is bounded by   
+	
+	\begin{align}
+	-min(M, B - nd) \leq max(0,nd - B) 
+	\end{align}
+	
+	That is, if the net demand is negative, decision is taken on amount to power to buy to meet the demand and fill the battery. On the other hand, if the net demand is positive, it is first used to fill the battery and only if there is any excess power left, it will be sold to other microgrids.
+	
+	\item \textbf{Non-ADL model}:  This model is similar to the $ADL-sharing$ model, but without the integration of ADL demand. In this model, the ADL demand is added to the main demand. Unlike the $ADL-sharing$ model, there is no flexibility of intelligently scheduling the ADL demand. 
+	
+\end{itemize}
+
+\subsection{Setup}
 
 % \begin{figure}
 %still need the trimming of figure. include when we put experimental figures
@@ -8,21 +27,58 @@ We implemented our models on network with 3 microgrids. Two microgrids are opera
 
 We simulate the above setup for the month of September 2017 and collect the wind and solar renewable power generated each day every hour. The parameters for our experiments are described below. The number of decision time periods is taken to be 4. We consider 3 demand values for all the microgrids - 2, 4 and 6 units. The probability transition matrices for all the 3 microgrids are given below :
 
-$$
-P_{1} = [0.2 0.6 0.2;0.1 0.2 0.7;0.8 0.1 0.1]; $$
-$$
-P_{2} = [0.2 0.2 0.6;0.8 0.1 0.1;0.2 0.7 0.1]; $$
-$$P_{3} = [0.5 0.5 0;0 0.5 0.5;1 0 0];$$
+
+\[
+P_{1}=
+\begin{bmatrix}
+0.2 & 0.6 & 0.2 \\
+0.1 & 0.2 & 0.7 \\
+0.8 & 0.1 & 0.1
+\end{bmatrix}
+\]
+
+\[
+P_{2}=
+\begin{bmatrix}
+0.2 & 0.2 & 0.6 \\
+0.8 & 0.1 & 0.1 \\
+0.2 & 0.7 & 0.1
+\end{bmatrix}
+\]
+
+\[
+P_{3}=
+\begin{bmatrix}
+0.5 & 0.5 & 0 \\
+0 & 0.5 & 0.5 \\
+1 & 0 & 0
+\end{bmatrix}
+\]
+
+
+
 
 The price values is considered to be 5, 10 and 15. The Probability transition matrix for the price vector is given below:
 
-$$ P2 = [0.2 0.4 0.4;0.1 0.5 0.4;0.5 0.4 0.1];$$
+
+
+\[
+Q=
+\begin{bmatrix}
+0.2 & 0.4 & 0.4 \\
+0.1 & 0.5 & 0.4 \\
+0.5 & 0.4 & 0.1
+\end{bmatrix}
+\]
+
 
 Maximum size of battery and maximum renewable power generated is taken to be 8 units. The maximum power that a microgrid can obtain from the main grid is set to 10 units.
 
 We consider 3 ADLs in our experiment. First ADL requires 1 unit of power that needs to be satisfied within the second time period. Second ADL requires 1 unit of power within the third time period. Third ADL requires 2 units of power within the fourth time period.
 
 With this setup, we compare our proposed models. The algorithms are trained for $10^6$ iterations. For comparison purposes, we plot value of threshold $c$ on X-axis and Average reward on Y-axis. Average reward is computed as follows. We run the trained models for 1000 runs and average the reward obtained by each microgrid. 
+
+\subsection{Observations}
 
 \subsection{Discussion}
 
