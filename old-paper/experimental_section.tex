@@ -1,5 +1,5 @@
 \section{Simulation Experiments}
-We implemented our models on network with 3 microgrids. Two of them are operating on solar renewable generation and the other on wind renewable energy. To simulate the renewable generation, we use RAPsim software \cite{rapsim}. RAPsim is an open source simulator for analyzing the power flow in microgrids. It has a provision for simulating the renewable generation, which is the main feature that we use in our experiments. We construct our microgrid model as shown in the Fig 2. We can see that there are three microgrids, two of them operating on the solar energy and the other on the wind energy. The solar microgrid in the right has more capacity than that of the one in the left. These microgrids also have electrical connections from the main grid. Each microgrid provides power to the respective houses on their power line. 
+We implemented our models on a network with 3 microgrids. Two of them are operating on solar renewable generation and the other on wind energy. To simulate the renewable generation, we use RAPsim software \cite{rapsim}. RAPsim is an open source simulator for analyzing the power flow in microgrids. It has a provision for simulating the renewable generation, which is the main feature that we use in our experiments. We construct our microgrid model as shown in the Fig 2. We can see that there are three microgrids, two of them operating on the solar energy and the other on the wind energy. The solar microgrid in the right has more capacity than that of the one in the left. These microgrids also have electrical connections from the main grid. Each microgrid provides power to the respective houses on their power line. 
 
 
 \begin{figure}[thbp] \label{exp}
@@ -14,15 +14,15 @@ We implemented our models on network with 3 microgrids. Two of them are operatin
 We implement the model we described in the section 2. We call this model as $ADL-sharing$ model. For comparison purposes, we implement following models. 
 
 \begin{itemize}
-	\item \textbf{Greedy-ADL model}: In this model, the microgrids will exhibit the greedy behavior. They share the power only if there is excess power after filling up the battery. That is, the action in each instant is bounded by   
+	\item \textbf{Greedy-ADL model}: In this model, the microgrids will exhibit the greedy behavior. They share the power only if there is a excess power after filling up the battery. The action in each instant is bounded by   
 	
 	\begin{align}
 	-min(M, B - nd) \leq max(0,nd - B) 
 	\end{align}
 	
-	That is, if the net demand is negative, decision is taken on amount to power to buy to meet the demand and fill the battery. On the other hand, if the net demand is positive, it is first used to fill the battery and only if there is any excess power left, it will be sold to other microgrids.
+	That is, if the net demand is negative, decision is taken on amount to power to buy to meet the demand and fill the battery. On the other hand, if the net demand is positive, it is first used to fill the battery and only if there is any excess power left, it will be sold to the other microgrids.
 	
-	\item \textbf{Non-ADL model}:  This model is similar to the $ADL-sharing$ model, but without the integration of ADL demand. In this model, the ADL demand is added to the main demand. Unlike the $ADL-sharing$ model, there is no flexibility of intelligently scheduling the ADL demand. 
+	\item \textbf{Non-ADL model}:  This model is similar to the $ADL-sharing$ model, but without the concept of ADL jobs. In this model, the ADL demand is included in the main demand. Unlike the $ADL-sharing$ model, there is no flexibility of intelligently scheduling the ADL jobs. 
 	
 \end{itemize}
 
@@ -33,7 +33,7 @@ We implement the model we described in the section 2. We call this model as $ADL
 % \includegraphics[scale = 0.4]{experimental_setup.jpg}
 % \end{figure}
 
-We simulate the above setup for the month of September 2017 and collect the wind and solar renewable power generated each day every hour. The parameters for our experiments are described below. The number of decision time periods is taken to be 4. We consider 3 demand values for all the microgrids - 2, 4 and 6 units. The probability transition matrices for all the 3 microgrids are given below :
+We simulate the above setup for the month of September 2017 in the RAPsim and collect the wind and solar renewable power generated each day every hour. The parameters for our experiments are described below. The number of decision time periods is taken to be 4 (i.e., t = 4). We consider 3 demand values for all the microgrids - 2, 4 and 6 units. The probability transition matrix for all the 3 microgrids are given below :
 
 
 \[
