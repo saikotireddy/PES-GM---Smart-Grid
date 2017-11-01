@@ -472,9 +472,14 @@ The following experimentals results are desired to be observed:
 \end{itemize}
 
 \section{Conclusion}
+Providing a unified solution framework for modeling both demand-side management problem (scheduling ADL jobs and optimal utilization of storage devices) and supply-side management problem (enabling cooperative energy exchange among the microgrids) is a challenging task particularly when both demand and supply are considered stochastic. We for the first time in the literature used MDP to integrate these problems into a single unified framework. Also, for the first time in the literature we are considering scheduling ADL demand at micrgrid level as a load shifting technique. RL algorithms provide interesting solution methodology for solving MDP when underlying model is not available. We  used  Q-learning algorithm to maximize profit earned by microgrids by selling excess energy while maintaining demand and supply gap low. Based on the simulation experiments, our algorithms consistently outperforms all other algorithms.
+
+As a future work, we would like to consider the pricing mechanism for micrgrids. The pricing mechanism must allow micrgrids to bid for the selling price and buying price. One can use RL agents to bid for adoptive prices in such a way that micrgrids maximizes their profits. Another important future work is to use efficient RL algorithms with function approximation technique to scale the proposed algorithms. One can use several efficient  feature selection methods to improve the performance of these algorithms.
+
+ 
 %We considered the problem of electrifying a village by setting up microgrids close to the village. These microgrids have access to the renewable energy storage batteries and also electrical connections from the main grid. We identified two problems associated with the microgrid. First problem is to minimize the expected long-run discounted demand-supply deficit. We model this problem in the framework of MDP \cite{goodmdp}. This formulation doesn't take into consideration the cost of power production at the main grid site. Finally, we formulated MDP taking the cost of power production into consideration. We applied Multi-Agent Q-Learning algorithm to solve these problems. Simulations show that, when maximum power allocation at the main site is not very less, storing the power in the batteries and using them intelligently is the better solution compared to not using the storage batteries. 
 
-\section{Future Work}
+%\section{Future Work}
 %As future work, we would like to consider the possibility of power sharing between the microgrids. In this case, along with decision on amount of power to be used from stored batteries, microgrids also have to make decision on the amount of power that can be shared with others. We would also like to consider the  heterogeneous power price system. In this scenario, the price of power production at the main grid will vary from time to time. 
 
 \section*{Acknowledgment}
