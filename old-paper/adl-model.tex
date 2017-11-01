@@ -12,7 +12,7 @@ In this paper, we are considering the cooperative energy exchange model under wh
 From the above available information, microgrid controller  $C_i$ at every time step $t$ has to decide on the following choices: (a)  Amount of energy it needs to buy/sell from the main grid, (b) Amount of energy it needs to buy/sell from the neighboring microgrids,
 (c) Amount of the energy it needs to store/take from the storage device, and (d) Sub-set of ADL jobs it needs to schedule. Both the demand and energy generated at microgrid $i$ is uncertain/random due to  random nature of  loads ($d_t^i$ and $A_t^i$) and renewable energy generation ($r_t^i$). 
 
-Markov decision process (MDP)  is a general framework for modeling problems of dynamic optimal decision making under uncertainty. *****Need to write about MDP*******.
+Markov decision process (MDP)  is a general framework for modeling problems of dynamic optimal decision making under uncertainty. MDP is a tuple $<\mathcal{S},\mathcal{U},\mathcal{R},\mathcal{P}>$, where $\mathcal{S}$ is the set of all states, $\mathcal{U}$ is the set of all feasible actions, $\mathcal{R}:\mathcal{S}\times\mathcal{U}\times\mathcal{S}\to \mathbb{R} $ is single stage reward function and $\mathcal{P}:\mathcal{S}\times\mathcal{U}\times\mathcal{S} \to [0,1]$ is a state transition probability matrix. In Reinforcement learning (RL), an agent interacts with environment by observing state $s_t \in \mathcal{S}$ and  making decisions $u_t \in \mathcal{U}$. The new state is obtained by $s_{t+1} \tilde p(s_{t+1} | s_t,u_t)$ yielding $r_{t+1} = \mathcal{R}(s_t,u_t,s_{t+1})$. The goal of  RL agent is to maximize its total expected return by selecting actions $u_t$ at every time instant. We assume that actions are taken from the policy $\pi : \mathcal{S} \times \mathcal{U} \to [0,1]$. $\pi(u_t | s_t)$ denotes the probability of selecting action $u_t$ when agent is in state $s_t$. 
 %We modeled our problem in the framework of MDP. 
  In the next sub-section we provide the details of our MDP model.
 \subsection{MDP framework}
@@ -51,25 +51,26 @@ which denotes the power available after meeting the non-ADL demand and ADL deman
 \subsubsection{Single stage reward function}
 In this paper, we want to maximize the profit of each microgrid obtained by selling power while reducing the demand and supply deficit. Our singe stage reward function has both the reward obtained by selling power and penalty for unmet demand. The single stage reward  function for our MDP is as follows :
 \begin{align}
-g_t^{i}(s_t^i,u_t^i) = p_{t}*u_{t}^{i} + c*(min(0,&nd_{t}^{i} - u_{t}^{i}))  \nonumber\\ &+ c* \sum_{k =1}^{n} I_{f_{k}^{i} = 0} a_{k}^{i} ,
+r^{i}(s_t^i,u_t^i) = p_{t}*u_{t}^{i} + c*(min(0,&nd_{t}^{i} - u_{t}^{i}))  \nonumber\\ &+ c* \sum_{k =1}^{n} I_{f_{k}^{i} = 0} a_{k}^{i} ,
 \end{align}
 The first term represents the cost/gain incurred for  buying/selling the power, and the second and third terms represents the penalty  incurred for not meeting the non ADL demand and ADL demand respectively. Here, $c$ is penalty per unit of unmet demand and $I_{f_{k}^{i}}$ is indicator random variable which is equal to one if $f_{k}^{i} =0$ and zero otherwise. 
 %The microgrid incurs a cost of $c$ for every unit of demand that is not met. 
-******Need to write about transition probability kernel ***********.
+******Need to write about transition probability kernel ***********. In the next subsection, we will give long-run average cost objective function of our RL agent. 
 \subsection{Average cost setting}
-Finally, the objective of the microgrid $i$ is to maximize the following \cite{avgcost}:
+The long-run average cost objective function $J(\pi)$ of the microgrid $i$ for a given policy $\pi$ is given as follows:
+%\cite{avgcost}:
 \begin{align}
-limsup_{n \rightarrow \infty} 1/n \sum_{k = 0}^{n} E(g^{i}(s_{k},u_{k})),
+J(\pi) := \lim \sup_{n \rightarrow \infty}\frac{1}{n} \,\, \E \left(\left.\sum_{k = 0}^{n} r^{i} (s_{k},u_{k})\right|\pi \right),
 \end{align}
-where $E(.)$ is the expectation. 
+where $E(.)$ is the expectation. The goal of our RL agent is to find $\pi^* = \argmax_{\pi \in \Pi} J(\pi)$, where $\Pi$ contains set of all feasible policies.
 
-We also consider the long run discounted cost formulation. The objective here is to maximize the following:
-
-\begin{align}
-limsup_{n \rightarrow \infty} \sum_{k = 0}^{n} \gamma^{k} * E(g^{i}(s_{k},u_{k})),
-\end{align}
-
-where $\gamma$ is the discount factor. 
+%We also consider the long run discounted cost formulation. The objective here is to maximize the following:
+%
+%\begin{align}
+%limsup_{n \rightarrow \infty} \sum_{t = 0}^{n} \gamma^{t} * E(g^{i}(s_{t},u_{t})),
+%\end{align}
+%
+%where $\gamma$ is the discount factor. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
