@@ -13,7 +13,7 @@ where $\alpha$ is the learning rate and $s_{0}$ is any prescribed state.
 
 The $Q(s,a)$ in each iteration represents the average reward obtained in state $s$ by taking an action $a$. In \cite{avgcost}, they show that under appropriate learning rate, the algorithm converges to the  optimal policy. 
 
-Each microgrid will run the algorithm independently until convergence. Then the optimal policy of microgrid $i$ is obtained as follows:
+Each microgrid will run the algorithm independently until the convergence. Then the optimal policy of microgrid $i$ is obtained as follows:
 
 \begin{align}
 \pi_{i}^{*}(s) = max_{u}Q^{i}(s,u)
