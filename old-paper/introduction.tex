@@ -85,13 +85,6 @@ In \cite{zifadistributed}, distributed reinforcement learning algorithm for coor
 In \cite{pharsha}, authors consider the problem of optimal energy storage management under dynamic cost setup. They consider a renewable generator that is equipped with a limited storage battery and capable of meeting the some local demands. It also has connection from the main grid. The decision to be taken at every instant is the number of power units to be stored in the battery. They formulate this problem as a Markov Decision Process under long run average cost. The objective is to minimize the long run average cost of power bought from the main grid.
 
 
- 
-
-
-
-
-
-%make use of renewable and non-renewable energy at the supply side. 
 %****************** NEEDS TO BE CHANGED
 
 
@@ -115,20 +108,12 @@ With the increased use of the smart appliances and smart home environments, the 
 There is other regular demand that needs to be met at fixed time periods, apart from the zero or more ADL related demand associated with any customer. This regular demand along with the zero or more non-flexible ADL demand of a smart home is considered to be non-ADL demand for the rest of the paper. Similarly, the demand due to zero or more flexible ADLs of the smart home is considered to be ADL demand.
  
 There is prior art around scheduling the ADL-demand using the load shifting technique for handling the peak load scenarios \cite{CL2014}. However, they precisely know the supply profile while doing such a scheduling of the ADL-demand. In this paper, we propose scheduling of ADL-demand using the load shifting technique with uncertainty in the supply profile generated (e.g., renewable energy sources like solar or wind being the primary sources of power generation).
-%\end{enumerate}
 
-%Research on smartgrids can be classified into two areas -  Demand-side management and Supply-side management.
-
- 
-
-%In \cite{reddy2011learned}, Reinforcement Learning (RL) is used in smart grids for pricing mechanism so as to improve the profits of broker agents who procure energy from power generation sources and sell it to consumers.  
 \textbf{Our contributions :}
 \begin{inparaenum}[\bfseries (i)]
 We summarize our contributions as follows :\\
 \item To the best of out knowledge, we are the first one to integrate both the Demand-side and Supply-side management problems  in a single Markov decision process framework. We used reinforcement learning algorithms which do not require knowledge of the underlying model to address these problems. Our algorithms are easy to implement and also scalable.\\
 \item The Optimal scheduling of ADL demand at microgrid level, where both the demand and power generation is stochastic is first time introduced through this work. \\    
 \end{inparaenum}
-%\section*{Organization of the Paper}	
 
-
-The rest of the paper is organized as follows. The next section describes the important problems associated with the microgrids and solution techniques to solve them. Section III presents the results of experiments of our algorithms. Section IV provides the concluding remarks and Section V discusses the future research directions.
+The rest of the paper is organized as follows. In the section \ref{sec:model}, we discuss in detail about the problem formulation using MDP framework. We present  in section \ref{sec:algo} about our Q-learning algorithm. In section \ref{sec:experiments}, we present simulation experiments along with other algorithms for comparison. Finally in section \ref{sec:conclusion}, we provide the concluding remarks.
