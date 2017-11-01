@@ -16,9 +16,12 @@ We implement the model we described in the section 2. We call this model as $ADL
 \begin{itemize}
 	\item \textbf{Greedy-ADL model}: In this model, the microgrids will exhibit the greedy behavior. They share the power only if there is a excess power after filling up the battery. The action in each instant is bounded by   
 	
+	
 	\begin{align}
-	-min(M, B - nd) \leq max(0,nd - B) 
+	-min(M_t^i, B_t^i &- nd_t^i + \max_{1\leq j \leq 2^n} A(j) ) \leq u_t^i \nonumber\\ &\leq max(0, nd_t^i - B_t^i - \min_{1\leq j \leq 2^n} A(j)),
 	\end{align}
+	
+	
 	
 	That is, if the net demand is negative, decision is taken on amount to power to buy to meet the demand and fill the battery. On the other hand, if the net demand is positive, it is first used to fill the battery and only if there is any excess power left, it will be sold to the other microgrids.
 	
