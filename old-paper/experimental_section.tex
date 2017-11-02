@@ -89,7 +89,25 @@ We consider 3 ADLs in our experiment. We assume that all these 3 ADL's are known
 
 With this setup, we compare our proposed models. The algorithms are trained for $10^6$ iterations. For comparison purposes, we plot value of threshold $c$ on X-axis and Average reward on Y-axis. Average reward is computed as follows. We run the trained models for 1000 runs and average the reward obtained by each microgrid. 
 
+\begin{figure}[thbp] \label{r1}
+	\centering
+	\includegraphics[scale = 0.2]{result_2.jpg}
+	\caption{Comparision of Model 1 and Model 2  on 3 microgrids}
+\end{figure}
+
+\begin{figure}[thbp] \label{r1}
+	\centering
+	\includegraphics[scale = 0.2]{result_1.jpg}
+	\caption{Comparision of Model 1 and Model 3  on 3 microgrids}
+\end{figure}
+
+
 \subsection{Observations}
+\begin{itemize}
+\item With ADL jobs being included along with the non-ADL demand, our RL algorithm schedules few of the ADLs at the beginning of the allowed execution time window, few others are scheduled at the end of the allowed execution time window of the ADL, while some other ADLs get scheduled at the mid of the allowed execution time window. This ensures that the RL learning agents exploit the fact that the ADL demand is flexible to meet in a given range of time window. %On the other-hand, it is not desired that the learning agent schedules all the ADLs either at the beginning or at the end of the allowed time window of execution.
+\item When surplus energy is available at a microgrid at any time instant, we observe that the microgrids do not sell all of this to the other microgrids if there is more demand than supply in the future. For example, if the renewable energy source for a microgrid is solar energy, then if there is surplus energy (i.e., excess energy available after meeting the demand at some moment) at the microgrid during the midday, the microgrid sell that surplus energy to the other microgrids (because it is expected to generate more supply as the day progresses); on the other-hand, if there is surplus energy at the microgrid during the end of the day, the microgrid do not sell all of that surplus energy to the other microgrids (because there may not be much supply possible for the rest of the day).
+%\item How are we ensuring this? If there is 5 units of surplus at time t. If the demand at time (t+1) is 5 units, it's possible to meet that demand by storing 5 units at time t. Other possibility is, sell the 5 units in time t, and buy 5 units in time $t+1$ from some other microgrid. However the first option is most desired. How are we ensuring this in our experiments? One possible way to implement this is by ensuring the buying cost to be more than the selling cost for one unit of energy.   
+\end{itemize}
 
 \subsection{Discussion}
 
