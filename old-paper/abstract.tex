@@ -1,9 +1,13 @@
 \begin{abstract}
-In this paper, we consider two problems, one on the supply-side management another on the demand-side management of the  smartgrid.
+In this paper, we consider two problems, one on the supply-side management another on the demand-side management of the smartgrid.
 %energy sharing among microgrids along with optimal scheduling of time adjustable smart home appliances demand. 
-On the supply-side, we study the problem of energy sharing among the microgrids with the  goal of maximizing the profit by selling the excess energy while maintaining the demand and supply deficit low . Also on the demand-side, for the first time , we consider the problem of optimally scheduling the time adjustable smart home appliances demand. In this work, we considered both demand and energy generation as stochastic.
-We formulated both the problems in a unified Markov decision process (MDP) framework for the first time to incorporate envisioned future smartgrid system.  We considered the infinite horizon average cost as objective function and used Q-learning algorithm at each microgrid. In simulations,
-we observed that our algorithms outperforms all the other algorithms by performing optimal choices for energy sharing and scheduling.
+On the supply-side, we study the problem of energy sharing among the microgrids with the goal of maximizing the profit obtained by selling the power while meeting the demand of its customers. Microgrids are equipped with a limited capacity batteries that can store the renewable energy. When they have excess power after meeting its demand, they need to take a decision on the amount of power to be sold and that to be stored in their batteries. This is a crucial decision to make as the renewable energy generation is uncertain in nature and the demand of its customers varies from time to time. A penalty is levied when the microgrid cannot satisfy the demand in any time instant. Similarly when there is a shortage of power, a decision needs to be taken on the amount of power to be bought. This decision is influenced by varying price of the power. Hence there is a control problem of taking the optimal decision on buying/selling the power in order to maximize its long term average profit.  
+
+On the demand-side, we consider the problem of optimally scheduling the time adjustable demand. These are the jobs that have a flexible time window in which they can be scheduled. Penalty is levied only if they are not scheduled at the end of their window. This allows us to intelligently schedule them so as to balance the load at the microgrid. For the first time, we combine these problems together and formulate them in a Markov Decision Process (MDP) framework. We apply a popular Reinforcement Learning algorithm Q-learning to provide solution to this problem. Through simulations, we show that our model outperforms the traditional power sharing models. 
+
+ 
+%We formulate both the problems in a unified Markov decision process (MDP) framework for the first time to incorporate envisioned future smartgrid system.  We considered the infinite horizon average cost as objective function and used Q-learning algorithm at each microgrid. In simulations,
+%we observed that our algorithms outperforms all the other algorithms by performing optimal choices for energy sharing and scheduling.
 
 
 
