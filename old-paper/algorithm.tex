@@ -1,23 +1,16 @@
 \section{Algorithm}\label{sec:algo}
-We first note that the renewable generation is uncertain in nature. That is, we do not know in the current time period, the renewable generation in the future time periods. Also, we do not know the probability transition model of the demand. Hence we employ the RL algorithms that provides optimal solution under model-free environments.
+We first note that the renewable generation is uncertain in nature. That is, we do not know in the current time period, the renewable generation in the future time periods. Also, we do not know the probability transition model of the demand. Hence we employ  RL to provide optimal solution under model-free environments.
 
-To solve the above average cost formulation, we apply a popular RL algorithm, Q-Learning for the average cost. Our objective is to obtain a stationary optimal policy $\pi : S \rightarrow A$, which is a mapping from state space to action space.  
-
-We apply the Relative Value Iteration (RVI) Q-Learning described in \cite{avgcost}. In this algorithm, we update the Q-values in each iteration according to the following rule :
-
+To solve the above average cost problem, we apply a popular RL algorithm, Q-Learning. Our objective is to obtain a stationary optimal policy $\pi : S \rightarrow A$, which is a mapping from state to the action space.  
+We apply the Relative Value Iteration (RVI) based Q-Learning described in \cite{avgcost}. In this algorithm, we update the Q-values in each iteration according to the following rule:
 \begin{align}
-Q^{n+1}(s,a) = Q^{n}(s,a) + \alpha(n)(g(s,a,s^{'}) + \\ max_{u} Q^{n}(s^{'},u) - max_{u} Q^{n}(s_{0},u) - Q^{n}(s,a),
+Q^{n+1}(s,a) = Q^{n}(s,a) + \alpha(n)(g(s,a,s^{'}) + \\ max_{u} Q^{n}(s^{'},u) - max_{u} Q^{n}(s_{0},u) - Q^{n}(s,a)),
 \end{align}
-
 where $\alpha$ is the learning rate and $s_{0}$ is any prescribed state.
-
-The $Q(s,a)$ in each iteration represents the average reward obtained in state $s$ by taking an action $a$. In \cite{avgcost}, they show that under appropriate learning rate, the algorithm converges to the  optimal policy. 
-
-Each microgrid will run the algorithm independently until the convergence. Then the optimal policy of microgrid $i$ is obtained as follows:
-
+The $Q^n(s,a)$ represents the $n$th estimate of the Q-value  obtained in state $s$ by taking an action $a$. In \cite{avgcost}, it is shown that under appropriate learning rate, the algorithm converges to the  optimal policy. 
+Each microgrid will run the algorithm independently until convergence. Then the optimal policy of microgrid $i$ is obtained as follows
 \begin{align}
-\pi_{i}^{*}(s) = max_{u}Q^{i}(s,u)
+\pi_{i}^{*}(s) = max_{u}Q^{i}(s,u),
 \end{align}
-
-That is, the optimal policy in state $s$ is selected by taking the maximum of all actions of Q-value of corresponding state. 
+that is, the optimal policy in state $s$ is selected by taking the maximum over all actions of the Q-values.  
 
