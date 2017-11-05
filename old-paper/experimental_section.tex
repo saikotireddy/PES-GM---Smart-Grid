@@ -1,130 +1,90 @@
 \section{Simulation Experiments}\label{sec:experiments}
-We implemented our models on a network with three microgrids. Two of them  operate on solar renewable generation and the other on wind energy. To simulate the renewable generation, we use RAPsim software \cite{rapsim}. RAPsim is an open source simulator for analyzing the power flow in microgrids. It has a provision for simulating the renewable generation, which is the main feature that we use in our experiments. We construct our microgrid model as shown in Fig 2. We can see that there are three microgrids, two of them operating on the solar energy and the other on the wind energy. The solar microgrid in the right has more capacity than that of the one in the left. These microgrids also have electrical connections from the main grid. Each microgrid provides power to the respective houses on their power line. 
+We used  RAPsim  simulator  \cite{rapsim} for the evaluation of our model. RAPsim allows users to simulate microgrid networks (involving main grid, microgrids with solar and wind power generating capabilities, individual homes having solar panels). We implemented our models on a network with three microgrids (see Figure~\ref{exp}), out of which two are solar and one is wind microgrid. We considered one solar microgrid has more energy generation capability than other one. Each microgrid can serve the power to homes that are only connected to it. 
 
+%We implemented our models on a network with three microgrids. Two of them  operate on solar renewable generation and the other on wind energy. To simulate the renewable generation, we use RAPsim software \cite{rapsim}. RAPsim is an open source simulator for analyzing the power flow in microgrids. It has a provision for simulating the renewable generation, which is the main feature that we use in our experiments. We construct our microgrid model as shown in Fig 2. We can see that there are three microgrids, two of them operating on the solar energy and the other on the wind energy. The solar microgrid in the right has more capacity than that of the one in the left. These microgrids also have electrical connections from the main grid. Each microgrid provides power to the respective houses on their power line. 
 
-\begin{figure}[thbp] \label{exp}
+\begin{figure}[thbp]
 	\centering
-	\includegraphics[scale = 0.6]{experimental_setup.jpg}
-		\caption{Experimental Setup}
+	\includegraphics [scale = 0.6]{experimental_setup.jpg}
+        \caption{Experimental Setup}
+	\label{exp}
 \end{figure}
-
-
 \subsection{Implementation}
-
-We implement the model we described in the section 2. We call this model as $ADL-sharing$ model. For comparison purposes, we implement following models. 
-
+We implement our $ADL-sharing$ model described in section \ref{sec:model}. For comparison purposes, we implement the following models\footnote{The implementation is available at \url{https://github.com/saikotireddy/PES-GM---Smart-Grid/archive/master.zip}.}.. 
 \begin{itemize}
-	\item \textbf{Greedy-ADL model}: In this model, the microgrids will exhibit the greedy behavior. They share the power only if there is a excess power after filling up the battery. The action in each instant is bounded by   
-	
-	
+	\item \textbf{Greedy-ADL model}: In this model,  microgrids will exhibit the greedy behavior .i.e., they share power only after filling its battery fully. The action $u_t^i$ at each time instant $t$ is bounded as follows:  
 	\begin{align}
-	-min(M_t^i, B_t^i &- nd_t^i + \max_{1\leq j \leq 2^n} A(j) ) \leq u_t^i \nonumber\\ &\leq max(0, nd_t^i - B_t^i - \min_{1\leq j \leq 2^n} A(j)),
+	-min(M_t^i, & B_t^i - nd_t^i + \max_{1\leq j \leq 2^n} A_t^i(j) ) \leq u_t^i \nonumber\\ &\leq max(0, nd_t^i - B_t^i - \min_{1\leq j \leq 2^n} A_t^i(j)),
 	\end{align}
+	That is, if $ nd_t^i < 0$ , decision is taken on the amount of power to buy in order to satisfy the demand and to fill the battery. If $ nd_t^i > 0$, then it is first used to fill the battery fully and if any excess power left, it will be sold to the other microgrids.
 	
-	
-	
-	That is, if the net demand is negative, decision is taken on amount to power to buy to meet the demand and fill the battery. On the other hand, if the net demand is positive, it is first used to fill the battery and only if there is any excess power left, it will be sold to the other microgrids.
-	
-	\item \textbf{Non-ADL model}:  This model is similar to the $ADL-sharing$ model, but without the concept of ADL jobs. In this model, the ADL demand is included in the main demand. Unlike the $ADL-sharing$ model, there is no flexibility of intelligently scheduling the ADL jobs. 
-	
+	\item \textbf{Non-ADL model}:  In this model, flexible demand (ADL demand) is treated as normal demand. Penalty is levied immediately if the demand is not met in the current time slot.
+%This model is similar to the $ADL-sharing$ model, but without the concept of ADL jobs. In this model, the ADL demand is included in the main demand. Unlike the $ADL-sharing$ model, there is no flexibility of intelligently scheduling the ADL jobs. 	
 \end{itemize}
+\subsection{Simulation setup}
+We used RAPsim to generate real world per hour renewable energy data for each of the microgrid  for the month of September 2017. We used this data to fit a Poisson distribution for energy generation at each microgrid. The mean and variance of the Poisson distribution are as follows :\textbf{write values} .
+For each time period, non-ADL demand ($d_t^i$) at each of the microgrids can be one of the following  three values: 2, 4 and 6 units. The price ($p_t^i$) per unit energy  is considered to be one of the 5, 10 and 15. 
+% For demand at each microgrid, we considered three values - 2, 4 and 6 units. 
+%We simulate the above setup for the month of September 2017 in the RAPsim and collect the wind and solar renewable power generated each day every hour. Using this data, we fit Poisson distribution and obtain the Poisson mean. 
+%The parameters for our experiments are described below. The number of decision time periods is taken to be 4 (i.e., t = 4). We consider 3 demand values for all the microgrids - 2, 4 and 6 units. 
+The  transition probability matrix for non-ADL demand for all the three microgrids are given below along with the transition probability matrix for the price vector :
 
-\subsection{Setup}
-
-% \begin{figure}
-%still need the trimming of figure. include when we put experimental figures
-% \includegraphics[scale = 0.4]{experimental_setup.jpg}
-% \end{figure}
-
-We simulate the above setup for the month of September 2017 in the RAPsim and collect the wind and solar renewable power generated each day every hour. Using this data, we fit poisson distribution and obtain the poisson mean. The parameters for our experiments are described below. The number of decision time periods is taken to be 4 (i.e., t = 4). We consider 3 demand values for all the microgrids - 2, 4 and 6 units. The probability transition matrix for all the 3 microgrids are given below :
-
-
-\[
-P_{1}=
-\begin{bmatrix}
+\[P_{1}= \left[ \begin{array}{ccc}
 0.2 & 0.6 & 0.2 \\
 0.1 & 0.2 & 0.7 \\
 0.8 & 0.1 & 0.1
-\end{bmatrix}
-\]
-
-\[
+\end{array} \right],
+%
 P_{2}=
-\begin{bmatrix}
+\left[ \begin{array}{ccc}
 0.2 & 0.2 & 0.6 \\
 0.8 & 0.1 & 0.1 \\
 0.2 & 0.7 & 0.1
-\end{bmatrix}
+\end{array} \right]
 \]
 
-\[
-P_{3}=
-\begin{bmatrix}
+\[P_{3}= \left[ \begin{array}{ccc}
 0.5 & 0.5 & 0 \\
 0 & 0.5 & 0.5 \\
 1 & 0 & 0
-\end{bmatrix}
-\]
-
-
-
-
-The price values is considered to be 5, 10 and 15. The Probability transition matrix for the price vector is given below:
-
-
-
-\[
+\end{array} \right],
+%
 Q=
-\begin{bmatrix}
+\left[ \begin{array}{ccc}
 0.2 & 0.4 & 0.4 \\
 0.1 & 0.5 & 0.4 \\
 0.5 & 0.4 & 0.1
-\end{bmatrix}
+\end{array} \right]
 \]
-
-
-Maximum size of battery and renewable power generated is taken to be 8 units. The maximum power that a microgrid can obtain from the main grid is set to 10 units.
-
-We consider 3 ADLs in our experiment. We assume that all these 3 ADL's are known to microgrids in the first time period. First ADL requires 1 unit of power that needs to be satisfied within the second time period. Second ADL requires 1 unit of power within the third time period. Third ADL requires 2 units of power within the fourth time period.
-
-With this setup, we compare our proposed models. The algorithms are trained for $10^6$ iterations. For comparison purposes, we plot value of threshold $c$ on X-axis and Average reward on Y-axis. Average reward is computed as follows. We run the trained models for 1000 runs and average the reward obtained by each microgrid. For the second figure, we average the profit obtained by each microgrid for every 100 iterations.
-
-\begin{figure}[thbp] \label{r1}
-	\centering
-	\includegraphics[scale = 0.2]{first_plot.jpg}
-	\caption{Comparison of Models on 3 microgrids}
-\end{figure}
-
-\begin{figure}[thbp] \label{r1}
+The size of the battery ($B_t^i$) and  maximum power that a microgrid can obtain from the main grid ($M_t^i$) are taken to be 8 and 10 units respectively.
+At each microgrid, we consider 3 ADL jobs, $\{\gamma_{1}^{i} =  (1,1), \gamma_{2}^{i} =  (1,2),  \gamma_{3}^{i} =  (2,3)\}$ at the starting of the day. Where ADL job $\gamma_{j}^{i} =  (a,b)$ requires $a$ units of energy within $b$ time slots. We considered each day is having three time slots. We ran all our algorithms for each of the following $c$ (penalty per unit of unmet demand) values : 5,10 and 30.
+\subsection{Results}
+The algorithms are trained for $10^6$ cycles. We used the average profit obtained by each microgrid as a performance metric to evaluate the models. Figure~\ref{r2} plots the average profit obtained for each microgrid versus the number of iterations when $c = 10$ for all the three models. Here, we ran each algorithm for 100 runs to obtain the average reward. 
+\begin{figure}[thbp]
 	\centering
 	\includegraphics[scale = 0.2]{second_plot.jpg}
-	\caption{Comparison of models across iterations for $price = 10$  }
+	\caption{Average profit metric comparision when $c = 10$ for three microgrid network.}
+        \label{r2}
 \end{figure}
 
-
+Figure~\ref{r1} plots the average profit obtained for each micrgrid versus $c$ for all the three models. Here, we ran each algorithm for 1000 runs to obtain the average reward. Based on the plots, we observe that our model ($ADL-sharing$) consistently outperforms the other models.  
+\begin{figure}[thbp]
+	\centering
+	\includegraphics[scale = 0.2]{first_plot.jpg}
+	\caption{Average profit metric comparision versus $c$.}
+	 \label{r1}
+\end{figure}
 \subsection{Observations}
+From our experiments we make the following observations:
 \begin{itemize}
-
-\item Consider the case of $c = 0$. Note that this doesn't mean that the agents do not satisfy the demand of the customers. It just means that the agents don't incur penalty for not satisfying the excess demand. The agents need not buy the power to satisfy the excess demand. In the $ADL-sharing$ model, we observe that all the agent fills the battery when the price is low and sells the power when the price is high. Hence there will be not much sharing among the agents. Also, the profit obtained is very high compared to the other models. This is because in $Greedy-ADL$ model, the power bought will be first stored in the battery and the only te excess will be sold. In $Non-ADL$ model, the demand values are higher compared to other models and hence there will very less excess power to sell and make profits.
-
-\item When $c >0$, we observe the sharing among the agents. This is because, at any time instant each microgrid has different configurations of current and future demand and renewable resources. An agent operating on solar renewable generation in the time period 2 share the excess power with the other agents, as it is generates more supply as the day progresses. A the same time, agent operating on wind renewable generation buys the power to store in its battery, if it expects more demand than it generates in future time period. This results in the sharing of power among the agents.   
+\item When $c = 0$, the agents need not buy power to satisfy the excess demand as they don't incur penalty.
+ In the $ADL-sharing$ model, we observe that all the agent fills the battery when the price is low and sells the power when the price is high. %Hence there will be not much sharing among the agents. 
+Hence, the profit obtained is very high compared to the other models. When $c >0$, we observe the sharing among the micrgrids. 
+% because in $Greedy-ADL$ model, the power bought will be first stored in the battery irrespective of price. 
+%In $Non-ADL$ model, the demand values are higher compared to other models and hence there will very less excess power to sell and make profits.
+\item We observed less sharing among the microgrids for the higher values of $c$. It is a desired as the penalty ($c$) is more for unmet demand, microgrids tend to store more in the battery than to share. 
+%\item When $c >0$, we observe the sharing  as each microgrid has different configurations of current and future demand and renewable resources. An agent operating on solar renewable generation in the time period 2 share the excess power with the other agents, as it is generates more supply as the day progresses. A the same time, agent operating on wind renewable generation buys the power to store in its battery, if it expects more demand than it generates in future time period. This results in the sharing of power among the agents.   
 	
-\item With ADL jobs being included along with the non-ADL demand, our RL algorithm schedules few of the ADLs at the beginning of the allowed execution time window, few others are scheduled at the end of the allowed execution time window of the ADL, while some other ADLs get scheduled at the mid of the allowed execution time window. This ensures that the RL learning agents exploit the fact that the ADL demand is flexible to meet in a given range of time window. %On the other-hand, it is not desired that the learning agent schedules all the ADLs either at the beginning or at the end of the allowed time window of execution.
-
-\item When surplus energy is available at a microgrid at any time instant, we observe that the microgrids do not sell all of this to the other microgrids if there is more demand than supply in the future. For example, if the renewable energy source for a microgrid is solar energy, then if there is surplus energy (i.e., excess energy available after meeting the demand at some moment) at the microgrid during the midday, the microgrid sell that surplus energy to the other microgrids (because it is expected to generate more supply as the day progresses); on the other-hand, if there is surplus energy at the microgrid during the end of the day, the microgrid do not sell all of that surplus energy to the other microgrids (because there may not be much supply possible for the rest of the day).
-
-\item In Figure 4, we observe that as the number of iterations increases, the performance of the learning algorithm improves. Moreover, the model 2 and the model 3 converges faster than that of our model 1, because of larger state and action space in model 1. 
-
-
-%\item How are we ensuring this? If there is 5 units of surplus at time t. If the demand at time (t+1) is 5 units, it's possible to meet that demand by storing 5 units at time t. Other possibility is, sell the 5 units in time t, and buy 5 units in time $t+1$ from some other microgrid. However the first option is most desired. How are we ensuring this in our experiments? One possible way to implement this is by ensuring the buying cost to be more than the selling cost for one unit of energy.   
+\item Our RL algorithm is exhibiting the following intelligent behavior: (a) Schedules few of the ADL jobs at the beginning, few at the end and few at the middle of their allowed execution time window to exploit flexible nature of the ADL demand. (b) microgrids do not sell all of its surplus energy to the other microgrids if there is more demand than supply in the future (particularly, solar microgrids sell excess energy during the midday but not at the end of the day).
+%\item In Figure~\ref{r2}, we observe that as the number of iterations increases, the performance of the learning algorithm improves. Moreover, the model 2 and the model 3 converges faster than that of our model 1, because of larger state and action space in model 1. 
 \end{itemize}
-
-\subsection{Discussion}
-
-In Figure 3, we compare our $ADL-sharing$ model with the $Greedy- ADL$ and $Non-ADL$. As discussed earlier, in the $Greedy-ADL$ model the sharing of power is done only when there is excess after filling the battery. We thus see that the first model outperforms the second model. Even though there will be less buying of power in $Greedy-ADL$, there will be no selling of power as well. Therefore the overall profit obtained will not be higher than that, when the intelligent decisions are made. Hence we can conclude that the intelligent sharing of power among microgrids yields more profit than that of the non-sharing case. 
-
-We also observe from the plot that, our model 1 outperforms the model 3. The reason for that is discussed below.  In $ADL-sharing$, there is a flexibility to intelligently schedule the ADL activities according to the non-ADL demand and price. But this is not the case with the $Non-ADL$ model. In this case, the penalty will be immediately levied if the demand (including the ADL demand) is not met. This results in the poor performance of $Non-ADL$. Hence we can conclude that intelligently scheduling the ADL demand results in the better performance.
-  
-
-
-From the above discussion we can conclude that our proposed algorithm along with the flexible ADL demand integration, is the best algorithm that provides more profits to the microgrids. 
