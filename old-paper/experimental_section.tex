@@ -87,18 +87,18 @@ Maximum size of battery and renewable power generated is taken to be 8 units. Th
 
 We consider 3 ADLs in our experiment. We assume that all these 3 ADL's are known to microgrids in the first time period. First ADL requires 1 unit of power that needs to be satisfied within the second time period. Second ADL requires 1 unit of power within the third time period. Third ADL requires 2 units of power within the fourth time period.
 
-With this setup, we compare our proposed models. The algorithms are trained for $10^6$ iterations. For comparison purposes, we plot value of threshold $c$ on X-axis and Average reward on Y-axis. Average reward is computed as follows. We run the trained models for 1000 runs and average the reward obtained by each microgrid. 
+With this setup, we compare our proposed models. The algorithms are trained for $10^6$ iterations. For comparison purposes, we plot value of threshold $c$ on X-axis and Average reward on Y-axis. Average reward is computed as follows. We run the trained models for 1000 runs and average the reward obtained by each microgrid. For the second figure, we average the profit obtained by each microgrid for every 100 iterations.
 
 \begin{figure}[thbp] \label{r1}
 	\centering
-	\includegraphics[scale = 0.2]{result_2.jpg}
-	\caption{Comparision of Model 1 and Model 2  on 3 microgrids}
+	\includegraphics[scale = 0.2]{first_plot.jpg}
+	\caption{Comparison of Models on 3 microgrids}
 \end{figure}
 
 \begin{figure}[thbp] \label{r1}
 	\centering
-	\includegraphics[scale = 0.2]{result_1.jpg}
-	\caption{Comparision of Model 1 and Model 3  on 3 microgrids}
+	\includegraphics[scale = 0.2]{second_plot.jpg}
+	\caption{Comparison of models across iterations for $price = 10$  }
 \end{figure}
 
 
@@ -112,13 +112,19 @@ With this setup, we compare our proposed models. The algorithms are trained for 
 \item With ADL jobs being included along with the non-ADL demand, our RL algorithm schedules few of the ADLs at the beginning of the allowed execution time window, few others are scheduled at the end of the allowed execution time window of the ADL, while some other ADLs get scheduled at the mid of the allowed execution time window. This ensures that the RL learning agents exploit the fact that the ADL demand is flexible to meet in a given range of time window. %On the other-hand, it is not desired that the learning agent schedules all the ADLs either at the beginning or at the end of the allowed time window of execution.
 
 \item When surplus energy is available at a microgrid at any time instant, we observe that the microgrids do not sell all of this to the other microgrids if there is more demand than supply in the future. For example, if the renewable energy source for a microgrid is solar energy, then if there is surplus energy (i.e., excess energy available after meeting the demand at some moment) at the microgrid during the midday, the microgrid sell that surplus energy to the other microgrids (because it is expected to generate more supply as the day progresses); on the other-hand, if there is surplus energy at the microgrid during the end of the day, the microgrid do not sell all of that surplus energy to the other microgrids (because there may not be much supply possible for the rest of the day).
+
+\item In Figure 4, we observe that as the number of iterations increases, the performance of the learning algorithm improves. Moreover, the model 2 and the model 3 converges faster than that of our model 1, because of larger state and action space in model 1. 
+
+
 %\item How are we ensuring this? If there is 5 units of surplus at time t. If the demand at time (t+1) is 5 units, it's possible to meet that demand by storing 5 units at time t. Other possibility is, sell the 5 units in time t, and buy 5 units in time $t+1$ from some other microgrid. However the first option is most desired. How are we ensuring this in our experiments? One possible way to implement this is by ensuring the buying cost to be more than the selling cost for one unit of energy.   
 \end{itemize}
 
 \subsection{Discussion}
 
-In Figure 1, we compare our $ADL-sharing$ model with the $Greedy- ADL$. As discussed earlier, in the latter model the sharing of power is done only when there is excess after filling the battery. We can see that the first model outperformed the second model. Even though there will be less buying of power in $Greedy-ADL$, there will be no selling of power as well. Therefore  the overall profit obtained will not be higher than that, when the intelligent decisions are made. Hence we can conclude that the intelligent sharing of power among microgrids yields more profit than that of the non-sharing case. 
+In Figure 3, we compare our $ADL-sharing$ model with the $Greedy- ADL$ and $Non-ADL$. As discussed earlier, in the $Greedy-ADL$ model the sharing of power is done only when there is excess after filling the battery. We thus see that the first model outperforms the second model. Even though there will be less buying of power in $Greedy-ADL$, there will be no selling of power as well. Therefore the overall profit obtained will not be higher than that, when the intelligent decisions are made. Hence we can conclude that the intelligent sharing of power among microgrids yields more profit than that of the non-sharing case. 
 
-In Figure 2, we compare our $ADL-sharing$ model with the $Non-ADL$ model. We can observe from the plot that, our model 1 outperforms the model 3. The reason for that is discussed below.  In $ADL-sharing$, there is a flexibility to intelligently schedule the ADL activities according to the non-ADL demand and price. But this is not the case with the $Non-ADL$ model. In this case, the penalty will be immediately levied if the demand (including the ADL demand) is not met. This results in the poor performance of $Non-ADL$. Hence we can conclude that intelligently scheduling the ADL demand results in the better performance. 
+We also observe from the plot that, our model 1 outperforms the model 3. The reason for that is discussed below.  In $ADL-sharing$, there is a flexibility to intelligently schedule the ADL activities according to the non-ADL demand and price. But this is not the case with the $Non-ADL$ model. In this case, the penalty will be immediately levied if the demand (including the ADL demand) is not met. This results in the poor performance of $Non-ADL$. Hence we can conclude that intelligently scheduling the ADL demand results in the better performance.
+  
+
 
 From the above discussion we can conclude that our proposed algorithm along with the flexible ADL demand integration, is the best algorithm that provides more profits to the microgrids. 
