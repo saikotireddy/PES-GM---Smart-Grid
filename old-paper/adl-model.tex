@@ -48,7 +48,7 @@ We have $J_{t+1}^{i} = \widehat J_{t+1}^{i} \cup \widetilde J_{t}^{i}$, where $\
 
 The battery information is updated as follows:
 \begin{align}
-b_{t+1}^{i} = max(0,nd_{t}^{i} - u_{t}^{i} - v_{t}^{i}),
+b_{t+1}^{i} = max(0,nd_{t}^{i} - u_{t}^{i} + v_{t}^{i}),
 \end{align}
 which denotes the power available after meeting the non-ADL demand and after meeting part of the ADL demand.
 \subsubsection{Single stage reward function}
