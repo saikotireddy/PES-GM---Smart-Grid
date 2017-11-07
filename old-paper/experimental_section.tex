@@ -10,15 +10,15 @@ We used the RAPsim  simulator  \cite{rapsim} for the evaluation of our algorithm
 	\label{exp}
 \end{figure}
 \subsection{Implementation}
-We implement our $ADL-sharing$ model described in section \ref{sec:model}. For comparison purposes, we also implement the following models.\footnote{The implementation is available at \url{https://github.com/saikotireddy/PES-GM---Smart-Grid/archive/master.zip}.} 
+We implement our \textbf{ADL-sharing model} described in section \ref{sec:model}. For comparison purposes, we also implement the following models.\footnote{The implementation is available at \url{https://github.com/saikotireddy/PES-GM---Smart-Grid/archive/master.zip}.} 
 \begin{itemize}
 	\item \textbf{Greedy-ADL model}: In this model, microgrids exhibit greedy behavior. They share power only after filling their respective batteries fully. The action $u_t^i$ at each time instant $t$ is bounded as follows:  
 	\begin{align}
-	-min(M_t^i, & B_t^i - nd_t^i + \max_{1\leq j \leq 2^n} A_t^i(j) ) \leq u_t^i \nonumber\\ &\leq max(0, nd_t^i - B_t^i - \min_{1\leq j \leq 2^n} A_t^i(j)).
+	-min(M_t^i, & B_t^i - nd_t^i + \max_{1\leq j \leq 2^n} A_t^i(j) ) \leq u_t^i \nonumber\\ &\leq max(0, nd_t^i - B_t^i).
 	\end{align}
 	Thus, if $ nd_t^i < 0$, decision is taken on the amount of power to buy in order to satisfy the demand and to fill the battery. If $ nd_t^i > 0$, then it is first used to fill the battery fully and if any excess power is left, it will be sold to the other microgrids.
 	
-	\item \textbf{Non-ADL model}:  In this model, flexible demand (ADL demand) is treated as normal demand. Penalty is levied immediately if the demand is not met in the current time slot.
+	\item \textbf{Non-ADL model}:  In this model, ADL demand is treated as normal demand. Penalty is levied immediately if the demand is not met in the current time slot.
 %This model is similar to the $ADL-sharing$ model, but without the concept of ADL jobs. In this model, the ADL demand is included in the main demand. Unlike the $ADL-sharing$ model, there is no flexibility of intelligently scheduling the ADL jobs. 	
 \end{itemize}
 \subsection{Simulation setup}
@@ -87,9 +87,13 @@ Figure~\ref{r1} plots the average profit obtained for each microgrid versus $c$ 
 
 \begin{itemize}
 
-\item In the $Greedy-ADL$ model the sharing of power is done only after filling the battery. Therefore, even though there is less buying of power in $Greedy-ADL$, there is very little selling of power as well. Therefore the overall profit obtained is not high. Thus intelligent sharing of power among microgrids as with the RL technique, yields more profit than in the non-sharing case. 
+\item In  the $Greedy-ADL$ model there is less buying and selling of power compared to the other models.
+%In the $Greedy-ADL$ model the sharing of power is done only after filling the battery. Therefore, even though there is less buying of power in $Greedy-ADL$, there is very little selling of power as well.
+ Therefore the overall profit obtained is not high. Thus intelligent sharing of power among microgrids as with the RL technique, yields more profit than in the $Greedy-ADL$ case. 
 
-\item We also observe that, $ADL-sharing$ model outperforms the $Non-ADL$ model. In $ADL-sharing$, there is a flexibility to intelligently schedule the ADL jobs according to the non-ADL demand and price. But in the $Non-ADL$ case, the penalty is immediately levied if the demand (including the ADL demand) is not met. Hence we conclude that intelligently scheduling the ADL demand results in better performance.
+\item We also observe that, $ADL-sharing$ model outperforms the $Non-ADL$ model. In $ADL-sharing$, there is a flexibility to intelligently schedule the ADL jobs according to the non-ADL demand and price. 
+%But in the $Non-ADL$ case, the penalty is immediately levied if the demand (including the ADL demand) is not met. 
+Hence we conclude that intelligently scheduling the ADL demand results in better performance.
 
 
 

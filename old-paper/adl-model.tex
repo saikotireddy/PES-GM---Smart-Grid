@@ -65,7 +65,7 @@ Next, we provide the long-run average cost objective function.
 The long-run average cost objective function $J(\pi)$ of the microgrid $i$ for a given policy $\pi$ is given as follows:
 %\cite{avgcost}:
 \begin{align}
-J(\pi) := \lim \sup_{n \rightarrow \infty}\frac{1}{n} \,\, \E \left(\left.\sum_{k = 0}^{n} r^{i} (s_{k},u_{k})\right|\pi \right),
+J(\pi) := \lim \sup_{n \rightarrow \infty}\frac{1}{n} \,\, \E \left(\left.\sum_{t = 0}^{n} r^{i} (s_{t},u_{t})\right|\pi \right),
 \end{align}
 where $E(.)$ denotes the expected value. Here we view a policy $\pi$ as the map $\pi : S \to A$ which assigns for any state $s$, a feasible action $a$. The goal of our RL agent is to find $\pi^* = \argmax_{\pi \in \Pi} J(\pi)$, where $\Pi$ is the set of all feasible policies.
 
