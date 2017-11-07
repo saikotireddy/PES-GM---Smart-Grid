@@ -65,8 +65,8 @@ The transition probability matrix for non-ADL demand and the Price values are ge
 %\end{array} \right]
 %\]
 The maximum size of the battery ($B_t^i$) and maximum power that a microgrid can obtain from the main grid ($M_t^i$) are considered to be 8 and 10 units respectively.
-At each microgrid, we consider 3 ADL jobs, $\{\gamma_{1}^{i} =  (1,2), \gamma_{2}^{i} =  (1,3),  \gamma_{3}^{i} =  (2,4)\}$ at the start of the day, where ADL job $\gamma_{j}^{i} =  (a,b)$ requires $a$ units of energy within $b$ time slots. %We considered each day is having three time slots. 
-We ran all our models for each of the following $c$ (penalty per unit of unmet demand) values : 0,5,10 and 30, respectively.
+At each microgrid, we consider 3 ADL jobs, $\{\gamma_{1}^{i} =  (1,2), \gamma_{2}^{i} =  (1,3),  \gamma_{3}^{i} =  (2,4)\}$ at the start of the day, where ADL job $\gamma_{j}^{i} =  (a,b)$ requires $a$ units of energy within $b$ time slots. In the $Non-ADL$ model, the ADL demand is added to the demand at $t = 1$ each day. %We considered each day is having three time slots. 
+We ran all our models for each of the following $c$ (penalty per unit of unmet demand) values : 0, 5, 10 and 30, respectively.
 \subsection{Results}
 The algorithms are trained for $10^7$ cycles. We used the average profit obtained by each microgrid as a performance metric to evaluate the models. Figure~\ref{r2} plots the average profit obtained for each microgrid versus the number of iterations, when $c = 10$ for all the three models. 
 \begin{figure}[thbp]
@@ -89,7 +89,7 @@ Figure~\ref{r1} plots the average profit obtained for each microgrid versus $c$ 
 
 \item In the $Greedy-ADL$ model the sharing of power is done only after filling the battery. Therefore, even though there is less buying of power in $Greedy-ADL$, there is very little selling of power as well. Therefore the overall profit obtained is not high. Thus intelligent sharing of power among microgrids as with the RL technique, yields more profit than in the non-sharing case. 
 
-\item We also observe that, $ADL-sharing$ model outperforms the $Non-ADL$ model. In $ADL-sharing$, there is a flexibility to intelligently schedule the ADL jobs according to the non-ADL demand and price. But in the $Non-ADL$ case, the penalty is immediately levied if the demand (including the ADL demand) is not met. This results in the poor performance of $Non-ADL$. Hence we conclude that intelligently scheduling the ADL demand results in better performance.
+\item We also observe that, $ADL-sharing$ model outperforms the $Non-ADL$ model. In $ADL-sharing$, there is a flexibility to intelligently schedule the ADL jobs according to the non-ADL demand and price. But in the $Non-ADL$ case, the penalty is immediately levied if the demand (including the ADL demand) is not met. Hence we conclude that intelligently scheduling the ADL demand results in better performance.
 
 
 
