@@ -12,7 +12,7 @@ We apply the Relative Value Iteration (RVI) based Q-Learning algorithm described
 \begin{align}
 Q^{n+1}(&s,u) = Q^{n}(s,u) + \alpha(n)(g(s,u,s^{'}) + \nonumber\\ &  max_{u} Q^{n}(s^{'},u) - max_{u} Q^{n}(s_{0},u) - Q^{n}(s,u)),
 \end{align}
-where $\alpha$ is the learning rate and $s_{0}$ is any prescribed state.
+where $\alpha$ is the learning rate, $g(s,u,s^{'})$ is the reward obtained by taking an action $u$ in the state $s$ and transitioning to the state $s^{'}$ and $s_{0}$ is any prescribed state.
 Also, $Q^n(s,u)$ represents the $n$th estimate of the Q-value  obtained in state $s$ by taking action $u$. In \cite{avgcost}, it is shown that under appropriate learning rate, the algorithm converges to the  optimal policy. 
 Each microgrid runs a version of this algorithm independently until convergence. The optimal policy of microgrid $i$ is obtained as follows:
 \begin{align}

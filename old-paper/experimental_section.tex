@@ -68,7 +68,7 @@ The maximum size of the battery ($B_t^i$) and maximum power that a microgrid can
 At each microgrid, we consider 3 ADL jobs, $\{\gamma_{1}^{i} =  (1,2), \gamma_{2}^{i} =  (1,3),  \gamma_{3}^{i} =  (2,4)\}$ at the start of the day, where ADL job $\gamma_{j}^{i} =  (a,b)$ requires $a$ units of energy within $b$ time slots. In the $Non-ADL$ model, the ADL demand is added to the demand at $t = 1$ each day. %We considered each day is having three time slots. 
 We ran all our models for each of the following $c$ (penalty per unit of unmet demand) values : 0, 5, 10 and 30, respectively.
 \subsection{Results}
-The algorithms are trained for $10^7$ cycles. We used the average profit obtained by each microgrid as a performance metric to evaluate the models. Figure~\ref{r2} plots the average profit obtained for each microgrid versus the number of iterations, when $c = 10$ for all the three models. 
+The algorithms are trained for $10^7$ cycles. We used the average profit obtained by each microgrid as a performance metric to evaluate the models. Figure~\ref{r2} plots the average profit obtained for each microgrid versus the number of iterations, when $c = 30$ for all the three models. 
 \begin{figure}[thbp]
 	\centering
 	\includegraphics[scale = 0.2]{second_plot.jpg}
@@ -86,6 +86,8 @@ Figure~\ref{r1} plots the average profit obtained for each microgrid versus $c$ 
 \subsection{Discussion}
 
 \begin{itemize}
+	
+%\item In Figure~\ref{r2}, we observe that as the number of iterations increase, the average profit increases till the convergence.
 
 \item In  the $Greedy-ADL$ model there is less buying and selling of power compared to the other models.
 %In the $Greedy-ADL$ model the sharing of power is done only after filling the battery. Therefore, even though there is less buying of power in $Greedy-ADL$, there is very little selling of power as well.
