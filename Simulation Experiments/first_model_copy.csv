@@ -1,6 +1,0 @@
-Date&Time,Cloudfactor,Windspeed,powerProduction_WindTurbinePowerPlant@22/6_Bus0,powerProductionOptimal_WindTurbinePowerPlant@22/6_Bus0,powerProduction_SolarPowerPlant@14/6_Bus0,powerProductionOptimal_SolarPowerPlant@14/6_Bus0,powerConsumption_CustomConsumer@23/7_Bus0,powerDemand_CustomConsumer@23/7_Bus0,powerConsumption_CustomConsumer@12/7_Bus0,powerDemand_CustomConsumer@12/7_Bus0,powerConsumption_CustomConsumer@22/10_Bus0,powerDemand_CustomConsumer@22/10_Bus0,powerConsumption_CustomConsumer@13/10_Bus0,powerDemand_CustomConsumer@13/10_Bus0,powerConsumption_GridPower@18/6_Bus0,powerProduction_GridPower@18/6_Bus0,Column1
-2017.10.16   16.00,0.395,0.711,0,400,212.7644,400,600,600,400,400,400,400,600,600,0,1787.2356,
-2017.10.16   21.00,0.357,1.333,2.7117,400,83.0665,400,600,600,400,400,400,400,600,600,0,1914.22181,
-2017.10.17   02.00,0.134,1.321,2.616,400,0,400,600,600,400,400,400,400,600,600,0,1997.38404,
-2017.10.17   07.00,0.365,2.699,162.3491,400,0,400,600,600,400,400,400,400,600,600,0,1837.65087,
-2017.10.17   12.00,0.371,2.232,40.0746,400,118.8668,400,600,600,400,400,400,400,600,600,0,1841.05867,
